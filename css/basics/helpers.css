@@ -5,3 +5,29 @@
 .flex {
     display: flex;
 }
+
+.flex.column {
+    flex-direction: column;
+}
+
+.flex.align-center {
+    align-items: center;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
+.flex.space-evenly {
+    justify-content: space-evenly;
+}
+
+.flex.justify-center {
+    justify-content: center;
+}
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}

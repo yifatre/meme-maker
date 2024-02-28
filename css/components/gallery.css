@@ -1,15 +1,23 @@
-.gallery-container{
-    grid-auto-flow: column;
-    /* justify-content: space-evenly; */
+.gallery-container {
+    /* grid-auto-flow: column; */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-rows: repeat(auto-fit, 1fr);
+    gap: 1vw;
+    grid-auto-flow: dense;
+    justify-content: center;
+    align-items: center;
 
-    width: 80vw;
+
+    width: 95vw;
     margin: auto;
+
+    /* display: none; */
 }
 
-.img-container{
-    width: 150px;
-}
-
-.img-container img{
+.gallery-container img {
     cursor: pointer;
+    transition: transform 500ms;
+}
+.gallery-container img:hover {
+    transform: scale(1.03);
 }

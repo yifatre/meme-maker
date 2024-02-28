@@ -118,6 +118,13 @@ function onMouseDown(ev) {
     renderMeme()
 }
 
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container')
+
+    gElCanvas.width = elContainer.offsetWidth
+    gElCanvas.height = elContainer.offsetHeight
+}
+
 function addEventListeners() {
     // * Mouse Listeners
     gElCanvas.addEventListener('mousedown', onMouseDown)

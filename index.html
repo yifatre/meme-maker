@@ -1,47 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
     <title>Meme Maker</title>
 </head>
+
 <body onload="onInit()">
     <!-- <div class="for-font">a</div> -->
-    <section class="gallery-container grid for-font">
-        
-    </section>
-    <section class="canvas-container">
-        <canvas height="400" width="400"></canvas>
-    </section>
+    <header class="flex align-center space-between">
+        <h1>The Meme Maker 🎨🖌️</h1>
+        <nav>
+            <ul class="clean-list flex space-between">
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="grid">
+        <section class="gallery-container grid for-font">
+
+        </section>
+
+        <section class="edit grid">
+            <div class="canvas-container">
+                <canvas height="400" width="400"></canvas>
+            </div>
+
+            <div class="editor-controls grid">
+                <!-- <label for="txt">Text:</label> -->
+                <input type="text" name="txt" id="txt" oninput="onTextInput(this.value)">
+
+                <!-- <label for="outline">Text Outline Color:</label> -->
+                <button class="fa outline">
+                    outline
+                    <input class="color-input" type="color" name="outline" id="outline"
+                        onchange="onChangeOutline(this.value)">
+                </button>
+
+                <!-- <label for="fill">Text Fill Color:</label> -->
+                <button class="fa fill">
+                    fill
+                    <input class="color-input" type="color" name="fill" id="fill" onchange="onChangeFill(this.value)">
+                </button>
+
+                <button onclick="onChangeFontSize(1)">F+</button>
+                <button onclick="onChangeFontSize(-1)">F-</button>
+
+                <button onclick="onAddLine()">+</button>
+
+                <button onclick="onSwitchLine()">⇵</button>
+            </div>
+        </section>
 
 
-    <section class="edit flex">
-        <label for="txt">Text:</label>
-        <input type="text" name="txt" id="txt" oninput="onTextInput(this.value)">
+        <section>
+            <a href="#" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download Meme</a>
+        </section>
+    </main>
+    <footer>
 
-        <label for="outline">Text Outline Color:</label>
-        <input type="color" name="outline" id="outline" onchange="onChangeOutline(this.value)">
-
-        <label for="fill">Text Fill Color:</label>
-        <input type="color" name="fill" id="fill" onchange="onChangeFill(this.value)">
-
-        <button onclick="onChangeFontSize(1)">F+</button>
-        <button onclick="onChangeFontSize(-1)">F-</button>
-
-        <button onclick="onAddLine()">+</button>
-
-        <button onclick="onSwitchLine()">⇵</button>
-    </section>
-    
-    
-    <section>
-        <a href="#" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download Meme</a>
-    </section>
-
+    </footer>
     <script src="js/service/meme.service.js"></script>
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

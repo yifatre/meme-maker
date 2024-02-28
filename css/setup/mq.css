@@ -1,0 +1,5 @@
+@media(width>600px) {
+    .edit {
+        grid-template-areas: "canvas controls";
+    }
+}

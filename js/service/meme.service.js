@@ -1,6 +1,7 @@
 'use strict'
 
-var gImgs = [{ id: 4, url: 'img/4.jpg', keywords: ['funny', 'cat'] }, { id: 18, url: 'img/18.jpg', keywords: ['funny', 'cat'] }]
+var gImgs = []//[{ id: 4, url: 'img/4.jpg', keywords: ['funny', 'cat'] }, { id: 18, url: 'img/18.jpg', keywords: ['funny', 'cat'] }]
+_createImgs()
 
 var gMeme = {
     selectedImgId: 4,
@@ -59,4 +60,11 @@ function setLineWidth(width, lineIdx) {
 
 function addLine() {
     return gMeme.lines.push({ txt: '', size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0 })
+}
+
+
+function _createImgs() {
+    for (let i = 1; i <= 18; i++) {
+        gImgs.push({ id: i, url: `img/${i}.jpg`, keywords: ['funny', 'cat'] })
+    }
 }

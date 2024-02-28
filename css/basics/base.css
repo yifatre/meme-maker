@@ -1,17 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+
 body {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Impact, Verdana, sans-serif;
+    background-color: var(--off-white);
+    margin: 0;
+}
+
+h1,
+h2 {
+    margin: 0;
 }
 
 .for-font {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-
-.canvas-container {
-    /* height: 60vh; */
-    width: 80vw;
-    margin: 1rem auto;
+main{
+    margin: 0 auto;
+    
 }
 
 canvas {
