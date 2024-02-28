@@ -15,7 +15,8 @@ function renderMeme() {
     img.onload = () => {
         renderImg(img)
         // drawText(meme.lines[0])
-        meme.lines.forEach(line => drawText(line))
+        meme.lines.forEach((line, lineIdx) => { drawText(line, lineIdx) })
+        drawLineFrame()
     }
     renderEditor()
 }
@@ -42,18 +43,18 @@ function renderEditor() {
 }
 
 
-function drawText(line, x = 0, y = 0) {
+function drawText(line, lineIdx) {
     gCtx.lineWidth = 1
     gCtx.strokeStyle = line.color
 
     gCtx.fillStyle = line.fill
 
     gCtx.font = `${line.size}px Impact`
-    // gCtx.textAlign = 'center'
     gCtx.textBaseline = 'top'
 
     gCtx.fillText(line.txt, line.x, line.y)
     gCtx.strokeText(line.txt, line.x, line.y)
+    setLineWidth(gCtx.measureText(line.txt).width, lineIdx)
 }
 
 function onTextInput(txt) {
@@ -89,9 +90,46 @@ function onAddLine() {
 function onSwitchLine() {
     gCurrLineIdx--
     if (gCurrLineIdx < 0) gCurrLineIdx = getNumOfLines() - 1
-    renderEditor()
+    renderMeme()
 }
 
+function drawLineFrame() {
+    let line = getLine(gCurrLineIdx)
+    gCtx.beginPath()
+    gCtx.lineWidth = '2'
+    gCtx.strokeStyle = '#ffffff'
+    gCtx.rect(line.x - 10, line.y - 5, line.width + 20, line.size + 10)
+    gCtx.stroke()
+    gCtx.closePath()
+}
 
+function onMouseDown(ev) {
+    const { offsetX, offsetY, clientX, clientY } = ev
+    const lines = getMeme().lines
+    const clickedLine = lines.findIndex(line => {
+        const { x, y, size, width } = line
+        return offsetX >= x && offsetX <= x + width &&
+            offsetY >= y && offsetY <= y + size
+    })
+    console.log('hoveredLine:', clickedLine);
+    if (clickedLine === -1) return
+    gCurrLineIdx = clickedLine
+    console.log('gCurrLineIdx:', gCurrLineIdx);
+    renderMeme()
+}
 
+function addEventListeners() {
+    // * Mouse Listeners
+    gElCanvas.addEventListener('mousedown', onMouseDown)
+    // gElCanvas.addEventListener('mousemove', onDrawLine)
+    // gElCanvas.addEventListener('mouseup', onEndLine)
+
+    // // * Touch Listeners
+    // gElCanvas.addEventListener('touchstart', onStartLine)
+    // gElCanvas.addEventListener('touchmove', onDrawLine)
+    // gElCanvas.addEventListener('touchend', onEndLine)
+
+    // // * Resize Listener
+    // window.addEventListener('resize', resizeCanvas)
+}
 
