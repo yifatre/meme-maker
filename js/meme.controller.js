@@ -34,12 +34,14 @@ function renderEditor() {
     const elTxt = elEditor.querySelector('#txt')
     const elOutline = elEditor.querySelector('#outline')
     const elFill = elEditor.querySelector('#fill')
+    const elFont = elEditor.querySelector('#font')
 
     const line = getLine(gCurrLineIdx)
 
     elTxt.value = line.txt
     elOutline.value = line.color
     elFill.value = line.fill
+    elFont.value = line.font
 }
 
 
@@ -49,7 +51,7 @@ function drawText(line, lineIdx) {
 
     gCtx.fillStyle = line.fill
 
-    gCtx.font = `${line.size}px Impact`
+    gCtx.font = `${line.size}px ${line.font}`
     gCtx.textBaseline = 'top'
 
     gCtx.fillText(line.txt, line.x, line.y)
@@ -93,6 +95,11 @@ function onSwitchLine() {
     renderMeme()
 }
 
+function onChangeFont(fontName) {
+    setLineFont(fontName, gCurrLineIdx)
+    renderMeme()
+}
+
 function drawLineFrame() {
     let line = getLine(gCurrLineIdx)
     gCtx.beginPath()
@@ -118,12 +125,12 @@ function onMouseDown(ev) {
     renderMeme()
 }
 
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container')
+// function resizeCanvas() {
+//     const elContainer = document.querySelector('.canvas-container')
 
-    gElCanvas.width = elContainer.offsetWidth
-    gElCanvas.height = elContainer.offsetHeight
-}
+//     gElCanvas.width = elContainer.offsetWidth
+//     gElCanvas.height = elContainer.offsetHeight
+// }
 
 function addEventListeners() {
     // * Mouse Listeners
