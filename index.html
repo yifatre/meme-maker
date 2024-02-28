@@ -7,8 +7,8 @@
     <title>Meme Maker</title>
 </head>
 <body onload="onInit()">
-    <section class="gallery-container grid">
-        gallery
+    <!-- <div class="for-font">a</div> -->
+    <section class="gallery-container grid for-font">
         
     </section>
     <section class="canvas-container">
@@ -26,8 +26,12 @@
         <label for="fill">Text Fill Color:</label>
         <input type="color" name="fill" id="fill" onchange="onChangeFill(this.value)">
 
-        <!-- <button onclick="onChangeFontSize(1)">F+</button>
-        <button onclick="onChangeFontSize(-1)">F-</button> -->
+        <button onclick="onChangeFontSize(1)">F+</button>
+        <button onclick="onChangeFontSize(-1)">F-</button>
+
+        <button onclick="onAddLine()">+</button>
+
+        <button onclick="onSwitchLine()">⇵</button>
     </section>
     
     

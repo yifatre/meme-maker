@@ -5,7 +5,7 @@ let gCtx
 
 const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
-
+let gCurrLineIdx = 0
 
 
 function renderMeme() {
@@ -14,8 +14,10 @@ function renderMeme() {
     img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
         renderImg(img)
-        drawText(meme.lines[0])
+        // drawText(meme.lines[0])
+        meme.lines.forEach(line => drawText(line))
     }
+    renderEditor()
 }
 
 function renderImg(img) {
@@ -24,6 +26,19 @@ function renderImg(img) {
 
     // Draw the img on the canvas
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+function renderEditor() {
+    const elEditor = document.querySelector('.edit')
+    const elTxt = elEditor.querySelector('#txt')
+    const elOutline = elEditor.querySelector('#outline')
+    const elFill = elEditor.querySelector('#fill')
+
+    const line = getLine(gCurrLineIdx)
+
+    elTxt.value = line.txt
+    elOutline.value = line.color
+    elFill.value = line.fill
 }
 
 
@@ -37,12 +52,12 @@ function drawText(line, x = 0, y = 0) {
     // gCtx.textAlign = 'center'
     gCtx.textBaseline = 'top'
 
-    gCtx.fillText(line.txt, x, y)
-    gCtx.strokeText(line.txt, x, y)
+    gCtx.fillText(line.txt, line.x, line.y)
+    gCtx.strokeText(line.txt, line.x, line.y)
 }
 
 function onTextInput(txt) {
-    setLineText(txt)
+    setLineText(txt, gCurrLineIdx)
     renderMeme()
 }
 
@@ -52,18 +67,31 @@ function onDownloadMeme(elLink) {
 }
 
 function onChangeOutline(color) {
-    setLineColor(color)
+    setLineColor(color, gCurrLineIdx)
     renderMeme()
 }
 
 function onChangeFill(color) {
-    setLineFill(color)
+    setLineFill(color, gCurrLineIdx)
     renderMeme()
 }
 
-// function onChangeFontSize(dSize){
-//     setLineSize(dSize)
-//     renderMeme()
-// }
+function onChangeFontSize(dSize) {
+    setLineSize(dSize, gCurrLineIdx)
+    renderMeme()
+}
+
+function onAddLine() {
+    gCurrLineIdx = addLine() - 1
+    renderEditor()
+}
+
+function onSwitchLine() {
+    gCurrLineIdx--
+    if (gCurrLineIdx < 0) gCurrLineIdx = getNumOfLines() - 1
+    renderEditor()
+}
+
+
 
 

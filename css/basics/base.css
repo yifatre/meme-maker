@@ -1,14 +1,16 @@
 body {
     text-align: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Impact, Verdana, sans-serif;
+}
+
+.for-font {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
 }
 
 
 .canvas-container {
-    /* height: 60vh;
-    width: 80vw; */
-    height: fit-content;
-    width: fit-content;
+    /* height: 60vh; */
+    width: 80vw;
     margin: 1rem auto;
 }
 
