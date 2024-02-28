@@ -6,8 +6,18 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Meme Maker</title>
 </head>
-<body>
-    
+<body onload="onInit()">
+    <section class="gallery-container" hidden>
+        gallery
+    </section>
+    <section class="canvas-container">
+        <canvas height="400" width="400"></canvas>
+    </section>
+    <section class="edit">
+        <label for="txt">Text:</label>
+        <input type="text" name="txt" id="txt" oninput="onTextInput(this.value)">
+    </section>
+
     <script src="js/service/meme.service.js"></script>
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>

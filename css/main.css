@@ -1,0 +1,17 @@
+
+body{
+    text-align: center;
+}
+
+
+.canvas-container{
+    /* height: 60vh;
+    width: 80vw; */
+    height: fit-content;
+    width: fit-content;
+    margin: 1rem auto;
+}
+
+canvas{
+    border: 1px solid darkgray;
+}
