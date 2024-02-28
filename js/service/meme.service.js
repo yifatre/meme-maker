@@ -22,7 +22,9 @@ function getImgById(id) {
     return gImgs.find(img => img.id === id)
 }
 
-
+function setMemeImg(imgId){
+    gMeme.selectedImgId = imgId
+}
 
 function setLineText(txt, lineIdx = 0) {
     gMeme.lines[lineIdx].txt = txt

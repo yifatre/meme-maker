@@ -1,17 +1,7 @@
+@import url(setup/typography.css);
+@import url(setup/vars.css);
 
-body{
-    text-align: center;
-}
+@import url(basics/base.css);
+@import url(basics/helpers.css);
 
-
-.canvas-container{
-    /* height: 60vh;
-    width: 80vw; */
-    height: fit-content;
-    width: fit-content;
-    margin: 1rem auto;
-}
-
-canvas{
-    border: 1px solid darkgray;
-}
+@import url(components/gallery.css);

@@ -1,0 +1,11 @@
+.gallery-container{
+    grid-auto-flow: column;
+    /* justify-content: space-evenly; */
+
+    width: 80vw;
+    margin: auto;
+}
+
+.img-container{
+    width: 150px;
+}

@@ -5,14 +5,7 @@ let gCtx
 
 const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
-function onInit() {
-    gElCanvas = document.querySelector('canvas')
-    gCtx = gElCanvas.getContext('2d')
 
-    renderMeme()
-
-
-}
 
 
 function renderMeme() {
