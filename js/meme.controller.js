@@ -14,7 +14,7 @@ function renderMeme() {
     img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
         renderImg(img)
-        // drawText(meme.lines[0])
+        if (!meme.lines.length) return
         meme.lines.forEach((line, lineIdx) => { drawText(line, lineIdx) })
         drawLineFrame()
     }
@@ -37,11 +37,11 @@ function renderEditor() {
     const elFont = elEditor.querySelector('#font')
 
     const line = getLine(gCurrLineIdx)
-
-    elTxt.value = line.txt
-    elOutline.value = line.color
-    elFill.value = line.fill
-    elFont.value = line.font
+    // if(!line)
+    elTxt.value = line ? line.txt : ''
+    elOutline.value = line ? line.color : '#000000'
+    elFill.value = line ? line.fill : '#ffffff'
+    elFont.value = line ? line.font : 'Impact'
 }
 
 
@@ -85,14 +85,13 @@ function onChangeFontSize(dSize) {
 }
 
 function onAddLine() {
+    if (!document.querySelector('#txt').value) return
     gCurrLineIdx = addLine() - 1
     renderEditor()
 }
 
 function onSwitchLine() {
-    gCurrLineIdx--
-    if (gCurrLineIdx < 0) gCurrLineIdx = getNumOfLines() - 1
-    renderMeme()
+    switchLineToEdit()
 }
 
 function onChangeFont(fontName) {
@@ -122,6 +121,33 @@ function onMouseDown(ev) {
     if (clickedLine === -1) return
     gCurrLineIdx = clickedLine
     console.log('gCurrLineIdx:', gCurrLineIdx);
+    renderMeme()
+}
+
+function onMoveY(dy) {
+    setLineY(dy, gCurrLineIdx)
+    renderMeme()
+}
+
+function onMoveX(dx) {
+    setLineX(dx, gCurrLineIdx)
+    renderMeme()
+}
+
+
+function onDeleteLine() {
+    if (removeLine(gCurrLineIdx))
+        switchLineToEdit()
+}
+
+function switchLineToEdit() {
+    const numOfLines = getNumOfLines()
+    if (!numOfLines) {
+        gCurrLineIdx = 0
+    } else {
+        gCurrLineIdx--
+        if (gCurrLineIdx < 0) gCurrLineIdx = numOfLines - 1
+    }
     renderMeme()
 }
 

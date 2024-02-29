@@ -7,13 +7,13 @@ var gMeme = {
     selectedImgId: 4,
     selectedLineIdx: 0,
     lines: [
-        { txt: 'I sometimes eat Falafel', size: 20, color: '#ff0000', fill: '#ffffff', x: 0, y: 0, width: 0, font:'Segoe UI' },
-        { txt: 'Me too', size: 40, color: '#1100ff', fill: '#ffffff', x: 50, y: 50, width: 0, font:'Impact' }
+        { txt: 'I sometimes eat Falafel', size: 20, color: '#ff0000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Segoe UI' },
+        { txt: 'Me too', size: 40, color: '#1100ff', fill: '#ffffff', x: 50, y: 50, width: 0, font: 'Impact' }
     ]
 }
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
-
+/*********************************/
 function getMeme() {
     return gMeme
 }
@@ -34,11 +34,13 @@ function getImgById(id) {
     return gImgs.find(img => img.id === id)
 }
 
+/*********************************/
 function setMemeImg(imgId) {
     gMeme.selectedImgId = imgId
 }
 
 function setLineText(txt, lineIdx = 0) {
+    if (!getNumOfLines()) addLine()
     gMeme.lines[lineIdx].txt = txt
 }
 
@@ -58,14 +60,27 @@ function setLineWidth(width, lineIdx) {
     gMeme.lines[lineIdx].width = width
 }
 
-function setLineFont(fontName, lineIdx){
+function setLineFont(fontName, lineIdx) {
     gMeme.lines[lineIdx].font = fontName
 }
 
-function addLine() {
-    return gMeme.lines.push({ txt: '', size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0 })
+function setLineY(dy, lineIdx) {
+    gMeme.lines[lineIdx].y += dy
 }
 
+function setLineX(dx, lineIdx) {
+    gMeme.lines[lineIdx].x += dx
+}
+
+/*********************************/
+function addLine() {
+    return gMeme.lines.push({ txt: '', size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact' })
+}
+
+function removeLine(lineIdx) {
+    if (!getNumOfLines()) return
+    return gMeme.lines.splice(lineIdx, 1)
+}
 
 function _createImgs() {
     for (let i = 1; i <= 18; i++) {

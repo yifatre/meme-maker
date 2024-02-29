@@ -30,35 +30,43 @@
             </div>
 
             <div class="editor-controls grid">
-                <!-- <label for="txt">Text:</label> -->
                 <input type="text" name="txt" id="txt" oninput="onTextInput(this.value)">
+
                 <select name="font" id="font" onchange="onChangeFont(this.value)">
                     <option value="Impact">Impact</option>
                     <option value="Segoe UI">Segoe</option>
                     <option value="cursive">Cursive</option>
                     <option value="Georgia">Georgia</option>
                 </select>
-                <!-- <label for="outline">Text Outline Color:</label> -->
+                <button onclick="onChangeFontSize(1)">F+</button>
+                <button onclick="onChangeFontSize(-1)">F-</button>
+
+                <button>left</button>
+                <button>center</button>
+                <button>right</button>
+
                 <button class="fa outline">
                     outline
                     <input class="color-input" type="color" name="outline" id="outline"
                         onchange="onChangeOutline(this.value)">
                 </button>
 
-                <!-- <label for="fill">Text Fill Color:</label> -->
                 <button class="fa fill">
                     fill
                     <input class="color-input" type="color" name="fill" id="fill" onchange="onChangeFill(this.value)">
                 </button>
 
-                <button onclick="onChangeFontSize(1)">F+</button>
-                <button onclick="onChangeFontSize(-1)">F-</button>
 
                 <button onclick="onAddLine()">+</button>
 
                 <button onclick="onSwitchLine()">⇵</button>
 
-                <!-- <button onclick="onMoveDown()"></button> -->
+                <button onclick="onMoveY(-5)">↑</button>
+                <button onclick="onMoveY(5)">↓</button>
+                <button onclick="onMoveX(5)">→</button>
+                <button onclick="onMoveX(-5)">←</button>
+
+                <button onclick="onDeleteLine()">✕</button>
             </div>
         </section>
 
