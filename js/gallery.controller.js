@@ -10,6 +10,8 @@ function renderGallery(word = '') {
 
     const elGallery = document.querySelector('.gallery-container')
     elGallery.innerHTML = imgsHTMLs.join('')
+
+    document.querySelector('.msg').classList.add('hide')
 }
 
 function onSearch(word) {
@@ -64,6 +66,12 @@ function renderSavedMemes() {
     const memes = getSavedMemes()
     const elGallery = document.querySelector('.gallery-container')
     elGallery.innerHTML = ''
+    if (!memes) {
+        const elMsg = document.querySelector('.msg')
+        elMsg.innerHTML = '<h2>No saved memes yet 😫</h2>'
+        elMsg.classList.remove('hide')
+        return
+    }
 
     memes.forEach((meme, i) => {
         renderSavedMeme(meme.gMeme.id, meme.memeImgData, i, elGallery)
@@ -72,7 +80,7 @@ function renderSavedMemes() {
 }
 
 function renderSavedMeme(memeId, memeImgData, i, elGallery) {
-    const canvasStr = `<div class="saved-canvas-container"><canvas class="saved-canvas saved_${i}" height="150" width="150" onclick="editMeme('${memeId}')"></canvas><div>`
+    const canvasStr = `<div class="saved-canvas-container div_${i}"><canvas class="saved-canvas saved_${i}" height="150" width="150" onclick="editMeme('${memeId}')"></canvas><div>`
     elGallery.innerHTML += canvasStr
     const elCanvas = document.querySelector(`canvas.saved_${i}`)
     const ctx = elCanvas.getContext('2d')
