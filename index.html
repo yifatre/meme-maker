@@ -27,16 +27,22 @@
     </header>
     <main class="grid">
         <section class="gallery">
-            <label for="imgFilter">Search Images:</label>
-            <input type="text" list="filters" id="imgFilter" oninput="renderGallery(this.value)">
-            <datalist id="filters">
-                <option value="funny">
-                <option value="cat">
-                <option value="kid">
-                <option value="dog">
-                <option value="cute">
-            </datalist>
-            <button onclick="clearSearch()">Clear Search</button>
+            <div>
+                <label for="imgFilter">Search Images:</label>
+                <input type="text" list="filters" id="imgFilter" oninput="onSearch(this.value)">
+                <datalist id="filters">
+                    <option value="funny">
+                    <option value="cat">
+                    <option value="kid">
+                    <option value="dog">
+                    <option value="cute">
+                    <option value="baby">
+                </datalist>
+                <button onclick="clearSearch()">Clear Search</button>
+            </div>
+            <div class="keywords-map">
+
+            </div>
             <button class="surprise" onclick="getSurpriseMeme()">Surprise me!</button>
             <div class="gallery-container grid for-font">
             </div>
@@ -102,6 +108,7 @@
         <section class="saves">
             <button onclick="onSaveMeme()">Save Meme</button>
             <a href="#" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download Meme</a>
+            <button onclick="onUploadImg()">Share on Facebook</button>
         </section>
     </main>
     <footer>

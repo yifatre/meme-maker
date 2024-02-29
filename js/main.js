@@ -3,6 +3,7 @@
 function onInit() {
 
     renderGallery()
+    renderKeywordsMap()
 
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')

@@ -1,3 +1,7 @@
+.keywords-map span{
+    margin-inline: 0.2rem;
+}
+
 .gallery-container {
     /* grid-auto-flow: column; */
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

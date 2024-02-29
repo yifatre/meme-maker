@@ -1,9 +1,11 @@
 'use strict'
 
 const MEME_DB = 'meme'
+var KEYWORDS = ['funny', 'trump', 'dog', 'cute', 'baby']
 
 var gImgs = []
 _createImgs()
+_createKeywords()
 
 var gMeme = {}
 // {
@@ -40,6 +42,10 @@ function getImgs(word = '') {
 
 function getImgById(id) {
     return gImgs.find(img => img.id === id)
+}
+
+function getKeywordsMap() {
+    return gKeywordSearchCountMap
 }
 
 /*********************************/
@@ -95,6 +101,12 @@ function setLineY(dy) {
 
 function setLineX(dx) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
+}
+
+function updateKeywordsMap(word) {
+    if (!KEYWORDS.includes(word.toLowerCase())) return
+    if (!gKeywordSearchCountMap[word]) gKeywordSearchCountMap[word] = 0
+    gKeywordSearchCountMap[word]++
 }
 
 /*********************************/
@@ -163,4 +175,10 @@ function _createImgs() {
         { id: 17, url: `img/${17}.jpg`, keywords: ['funny', 'putin'] },
         { id: 18, url: `img/${18}.jpg`, keywords: ['funny', 'everywhere'] }
     ]
+}
+
+function _createKeywords() {
+    gImgs.forEach(img => {
+        KEYWORDS = KEYWORDS.concat(img.keywords.filter(word => !KEYWORDS.includes(word.toLowerCase())))
+    })
 }
