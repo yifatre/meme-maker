@@ -98,12 +98,12 @@ function setLineX(dx) {
 }
 
 /*********************************/
-function addLine() {
-    gMeme.lines.push(_createLine())
+function addLine(txt = '') {
+    gMeme.lines.push(_createLine(txt))
     gMeme.selectedLineIdx = getNumOfLines() - 1
 }
 
-function removeLine(lineIdx,) {
+function removeLine(lineIdx) {
     if (!getNumOfLines()) return
     return gMeme.lines.splice(lineIdx, 1)
 }
@@ -139,7 +139,7 @@ function createMeme(imgId, txt = '') {
 }
 
 function _createLine(txt = '') {
-    return { txt, size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact', alignDir: 'left' }
+    return { txt, size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact', alignDir: 'left', isDrag: false }
 }
 
 function _createImgs() {

@@ -6,11 +6,10 @@ let gCtx
 const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
 let gCurrMemeIdx = 0
-let gCurrLineIdx = 0
 
 
 function renderMeme() {
-    const meme = getMeme(gCurrMemeIdx)
+    const meme = getMeme()
     const img = new Image()
     img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
@@ -37,7 +36,7 @@ function renderEditor() {
     const elFill = elEditor.querySelector('#fill')
     const elFont = elEditor.querySelector('#font')
 
-    const line = getLine(gCurrMemeIdx)
+    const line = getLine()
 
     elTxt.value = line ? line.txt : ''
     elOutline.value = line ? line.color : '#000000'
@@ -59,39 +58,43 @@ function drawText(line, lineIdx) {
 
     gCtx.fillText(line.txt, line.x, line.y)
     gCtx.strokeText(line.txt, line.x, line.y)
-    setLineWidth(gCtx.measureText(line.txt).width, lineIdx, gCurrMemeIdx)
+    setLineWidth(gCtx.measureText(line.txt).width, lineIdx)
 }
 
 function onTextInput(txt) {
-    setLineText(txt, gCurrMemeIdx)
+    setLineText(txt)
     renderMeme()
 }
 
 
 function onChangeOutline(color) {
-    setLineColor(color, gCurrMemeIdx)
+    setLineColor(color)
     renderMeme()
 }
 
 function onChangeFill(color) {
-    setLineFill(color, gCurrMemeIdx)
+    setLineFill(color)
     renderMeme()
 }
 
 function onChangeFontSize(dSize) {
-    setLineSize(dSize, gCurrMemeIdx)
+    setLineSize(dSize)
     renderMeme()
 }
 
 function onAlignText(alignDir) {
-    setLineAlignDir(alignDir, gCurrMemeIdx)
+    setLineAlignDir(alignDir)
     renderMeme()
 }
 
 function onAddLine() {
     if (!document.querySelector('#txt').value) return
-    addLine(gCurrMemeIdx)
-    // renderEditor()
+    addLine()
+    renderMeme()
+}
+
+function onAddSticker(elBtn) {
+    addLine(elBtn.innerText)
     renderMeme()
 }
 
@@ -100,12 +103,12 @@ function onSwitchLine() {
 }
 
 function onChangeFont(elFont) {
-    setLineFont(elFont.value, gCurrMemeIdx)
+    setLineFont(elFont.value)
     renderMeme()
 }
 
 function drawLineFrame() {
-    let line = getLine(gCurrMemeIdx)
+    let line = getLine()
     gCtx.beginPath()
     gCtx.lineWidth = '2'
     gCtx.strokeStyle = '#ffffff'
@@ -116,43 +119,30 @@ function drawLineFrame() {
     gCtx.closePath()
 }
 
-function onMouseDown(ev) {
-    const { offsetX, offsetY, clientX, clientY } = ev
-    const lines = getMeme(gCurrMemeIdx).lines
-    const clickedLine = lines.findIndex(line => {
-        const { x, y, size, width } = line
-        return offsetX >= x && offsetX <= x + width &&
-            offsetY >= y && offsetY <= y + size
-    })
-    console.log('clickedLine:', clickedLine);
-    if (clickedLine === -1) return
-    setSelectedLineIdx(clickedLine, gCurrMemeIdx)
-    renderMeme()
-}
 
 function onMoveY(dy) {
-    setLineY(dy, gCurrMemeIdx)
+    setLineY(dy)
     renderMeme()
 }
 
 function onMoveX(dx) {
-    setLineX(dx, gCurrMemeIdx)
+    setLineX(dx)
     renderMeme()
 }
 
 
 function onDeleteLine() {
-    if (removeLine(gCurrMemeIdx))
+    if (removeLine())
         switchLineToEdit()
 }
 
 function switchLineToEdit() {
-    switchSelectedLine(gCurrMemeIdx)
+    switchSelectedLine()
     renderMeme()
 }
 
 function onSaveMeme() {
-    saveMeme(gCurrMemeIdx, imageToData())
+    saveMeme(imageToData())
 }
 
 function onDownloadMeme(elLink) {
@@ -165,19 +155,80 @@ function imageToData() {
     return gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
 }
 
+function onMouseDown(ev) {
+    const { offsetX, offsetY, clientX, clientY } = ev
+    const lines = getMeme().lines
+    const clickedLine = lines.findIndex(line => {
+        const { x, y, size, width } = line
+        return offsetX >= x && offsetX <= x + width &&
+            offsetY >= y && offsetY <= y + size
+    })
+    if (clickedLine === -1) return
+    lines[clickedLine].isDrag = true
+    console.log('clickedLine:', clickedLine);
+    if (clickedLine === -1) return
+    setSelectedLineIdx(clickedLine)
+    renderMeme()
+    document.body.style.cursor = 'grabbing'
+}
+
+function onDrag(ev) {
+    const line = getLine()
+    if (!line.isDrag) return
+
+    const pos = getEvPos(ev)
+    // Calc the delta, the diff we moved
+    const dx = pos.x - line.x
+    const dy = pos.y - line.y
+    // moveCircle(dx, dy)
+    setLineX(dx)
+    setLineY(dy)
+
+    // Save the last pos, we remember where we`ve been and move accordingly
+
+    // The canvas is rendered again after every move
+    renderMeme()
+}
+
+function onMouseUp() {
+    const line = getLine()
+    line.isDrag = false
+    document.body.style.cursor = 'grab'
+}
+
 
 function addEventListeners() {
     // * Mouse Listeners
     gElCanvas.addEventListener('mousedown', onMouseDown)
-    // gElCanvas.addEventListener('mousemove', onDrawLine)
-    // gElCanvas.addEventListener('mouseup', onEndLine)
+    gElCanvas.addEventListener('mousemove', onDrag)
+    gElCanvas.addEventListener('mouseup', onMouseUp)
 
-    // // * Touch Listeners
-    // gElCanvas.addEventListener('touchstart', onStartLine)
-    // gElCanvas.addEventListener('touchmove', onDrawLine)
-    // gElCanvas.addEventListener('touchend', onEndLine)
+    // * Touch Listeners
+    gElCanvas.addEventListener('touchstart', onMouseDown)
+    gElCanvas.addEventListener('touchmove', onDrag)
+    gElCanvas.addEventListener('touchend', onMouseUp)
 
     // // * Resize Listener
     // window.addEventListener('resize', resizeCanvas)
+}
+
+function getEvPos(ev) {
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+
+    if (TOUCH_EVENTS.includes(ev.type)) {
+
+        ev.preventDefault()         // Prevent triggering the mouse events
+        ev = ev.changedTouches[0]   // Gets the first touch point
+
+        // Calc pos according to the touch screen
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+        }
+    }
+    return pos
 }
 
