@@ -6,7 +6,7 @@ function renderGallery(word = '') {
     var imgsHTMLs
 
     const imgs = getImgs(word)
-    imgsHTMLs = imgs.map(img => `<img src="${img.url}" alt="" onclick="onImgSelect(${img.id})">`)
+    imgsHTMLs = imgs.map(img => `<div class="img-holder"><img src="${img.url}" alt="" onclick="onImgSelect(${img.id})"></div>`)
 
     const elGallery = document.querySelector('.gallery-container')
     elGallery.innerHTML = imgsHTMLs.join('')

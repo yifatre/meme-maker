@@ -5,7 +5,7 @@
 .gallery-container {
     /* grid-auto-flow: column; */
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    grid-template-rows: repeat(auto-fit, 1fr);
+    grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1vw;
     grid-auto-flow: dense;
     justify-content: center;
@@ -25,9 +25,18 @@
     margin-inline-start: 2rem;
 }
 
-.gallery-container * {
+.img-holder{
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     cursor: pointer;
     transition: transform 500ms;
+    border-radius: 5px;
 }
 .gallery-container *:hover {
     transform: scale(1.03);

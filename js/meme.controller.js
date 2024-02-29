@@ -202,9 +202,6 @@ function addEventListeners() {
     gElCanvas.addEventListener('touchstart', onMouseDown)
     gElCanvas.addEventListener('touchmove', onDrag)
     gElCanvas.addEventListener('touchend', onMouseUp)
-
-    // // * Resize Listener
-    // window.addEventListener('resize', resizeCanvas)
 }
 
 function getEvPos(ev) {
@@ -226,7 +223,6 @@ function getEvPos(ev) {
     }
     return pos
 }
-
 
 
 
