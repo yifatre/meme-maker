@@ -33,12 +33,16 @@ function renderEditor() {
     const elOutline = elEditor.querySelector('#outline')
     const elFill = elEditor.querySelector('#fill')
     const elFont = elEditor.querySelector('#font')
+    const elBtnOutlineSvg = elEditor.querySelector('.outline svg path')
+    const elBtnFillSvg = elEditor.querySelector('.fill svg path')
 
     const line = getLine()
 
     elTxt.value = line ? line.txt : ''
     elOutline.value = line ? line.color : '#000000'
+    elBtnOutlineSvg.setAttribute('fill', elOutline.value)
     elFill.value = line ? line.fill : '#ffffff'
+    elBtnFillSvg.setAttribute('fill', elFill.value)
     elFont.value = line ? line.font : 'Impact'
     elFont.style.fontFamily = elFont.value
 }

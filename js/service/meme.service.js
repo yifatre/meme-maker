@@ -123,7 +123,7 @@ function removeLine(lineIdx) {
 function saveMeme(memeImgData) {
     let storedMemes = loadFromStorage(MEME_DB)
     if (!storedMemes) storedMemes = []
-    storedMemes.push(gMeme)
+    storedMemes.push({ gMeme, memeImgData })
     saveToStorage(MEME_DB, storedMemes)
 }
 
@@ -141,12 +141,13 @@ function setCurrentMeme(memeId) {
 }
 
 
-function createMeme(imgId, txt = '') {
+function createMeme(imgId, txt = '', id, lines) {
+    if (!lines) lines = [_createLine(txt)]
     gMeme = {
-        id: makeId(),
+        id: id || makeId(),
         selectedImgId: imgId,
         selectedLineIdx: 0,
-        lines: [_createLine(txt)]
+        lines: lines
     }
 }
 

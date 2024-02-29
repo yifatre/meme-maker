@@ -10,13 +10,22 @@ function onInit() {
     addEventListeners()
 }
 
-function onOpenMenu(){
+function onOpenMenu() {
     document.body.classList.toggle('menu-open')
 }
 
-function onOpenGallery(){
+function onOpenGallery() {
+    renderGallery()
     document.querySelector('.gallery').style.display = 'block'
     document.querySelector('.saves').style.display = 'none'
     document.querySelector('.edit').style.display = 'none'
-    document.body.classList.toggle('menu-open')
+    document.body.classList.remove('menu-open')
+}
+
+function onOpenSavedMemes() {
+    renderSavedMemes()
+    document.querySelector('.gallery').style.display = 'block'
+    document.querySelector('.saves').style.display = 'none'
+    document.querySelector('.edit').style.display = 'none'
+    document.body.classList.remove('menu-open')
 }

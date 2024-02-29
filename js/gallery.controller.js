@@ -54,16 +54,32 @@ function goToEditMeme() {
     document.querySelector('.edit').style.display = 'grid'
 }
 
+function editMeme(memeId) {
+    const meme = getSavedMemes().find(meme => meme.gMeme.id === memeId)
+    createMeme(meme.gMeme.selectedImgId, '', memeId, meme.gMeme.lines)
+    goToEditMeme()
+}
 
-function renderMeme() {
-    const meme = getSavedMemes()[0]
+function renderSavedMemes() {
+    const memes = getSavedMemes()
+    const elGallery = document.querySelector('.gallery-container')
+    elGallery.innerHTML = ''
+
+    memes.forEach((meme, i) => {
+        renderSavedMeme(meme.gMeme.id, meme.memeImgData, i, elGallery)
+    });
+
+}
+
+function renderSavedMeme(memeId, memeImgData, i, elGallery) {
+    const canvasStr = `<div class="saved-canvas-container"><canvas class="saved-canvas saved_${i}" height="150" width="150" onclick="editMeme('${memeId}')"></canvas><div>`
+    elGallery.innerHTML += canvasStr
+    const elCanvas = document.querySelector(`canvas.saved_${i}`)
+    const ctx = elCanvas.getContext('2d')
     const img = new Image()
-    img.src = meme.url
+    img.src = memeImgData
     img.onload = () => {
-        renderImg(img)
-        if (!meme.lines.length) return
-        meme.lines.forEach((line, lineIdx) => { drawText(line, lineIdx) })
-        drawLineFrame()
+        elCanvas.height = (img.naturalHeight / img.naturalWidth) * elCanvas.width
+        ctx.drawImage(img, 0, 0, elCanvas.width, elCanvas.height)
     }
-    renderEditor()
 }
