@@ -14,7 +14,7 @@
     /* display: none; */
 }
 
-.gallery button{
+.gallery button.surprise{
     background: none;
     border: none;
     font-size: 1.5rem;

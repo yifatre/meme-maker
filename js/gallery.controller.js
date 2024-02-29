@@ -12,11 +12,14 @@ function renderGallery(word = '') {
     elGallery.innerHTML = imgsHTMLs.join('')
 }
 
-function onImgSelect(imgId) {
+function clearSearch() {
+    document.querySelector('#imgFilter').value = ''
+    renderGallery()
+}
 
+function onImgSelect(imgId) {
     createMeme(imgId)
     goToEditMeme()
-
 }
 
 function getSurpriseMeme() {

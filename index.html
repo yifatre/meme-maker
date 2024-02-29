@@ -9,7 +9,6 @@
 </head>
 
 <body onload="onInit()">
-    <!-- <div class="for-font">a</div> -->
     <header class="flex align-center space-between">
         <h1>The Meme Maker 🎨🖌️</h1>
         <button class="open-menu" onclick="onOpenMenu()">
@@ -37,7 +36,8 @@
                 <option value="dog">
                 <option value="cute">
             </datalist>
-            <button onclick="getSurpriseMeme()">Surprise me!</button>
+            <button onclick="clearSearch()">Clear Search</button>
+            <button class="surprise" onclick="getSurpriseMeme()">Surprise me!</button>
             <div class="gallery-container grid for-font">
             </div>
         </section>
