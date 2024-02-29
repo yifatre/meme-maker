@@ -16,16 +16,17 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
         </button>
-        <nav class="main-nav">
-            <ul class="clean-list flex space-between">
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">About</a></li>
+        <nav class="main-nav flex">
+            <ul class="clean-list flex space-between align-center">
+                <li><button class="flex align-center justify-center" onclick="onOpenGallery()">Gallery</button></li>
+                <li><button class="flex align-center justify-center" onclick="">Saved Memes</button></li>
+                <li><button class="flex align-center justify-center" onclick="">About</button></li>
             </ul>
         </nav>
     </header>
     <main class="grid">
         <section class="gallery-container grid for-font">
-
+            <!-- <button>Surprise me!</button> -->
         </section>
 
         <section class="edit grid">
@@ -36,18 +37,18 @@
             <div class="editor-controls grid">
                 <input type="text" name="txt" id="txt" oninput="onTextInput(this.value)">
 
-                <select name="font" id="font" onchange="onChangeFont(this.value)">
+                <select name="font" id="font" onchange="onChangeFont(this)">
                     <option value="Impact">Impact</option>
-                    <option value="Segoe UI">Segoe</option>
+                    <option value="Segoe UI">Segoe UI</option>
                     <option value="cursive">Cursive</option>
                     <option value="Georgia">Georgia</option>
                 </select>
                 <button onclick="onChangeFontSize(1)">F+</button>
                 <button onclick="onChangeFontSize(-1)">F-</button>
 
-                <button>left</button>
-                <button>center</button>
-                <button>right</button>
+                <button onclick="onAlignText('left')">left</button>
+                <button onclick="onAlignText('center')">center</button>
+                <button onclick="onAlignText('right')">right</button>
 
                 <button class="fa outline">
                     outline
@@ -76,6 +77,7 @@
 
 
         <section>
+            <button onclick="onSaveMeme()">Save Meme</button>
             <a href="#" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download Meme</a>
         </section>
     </main>

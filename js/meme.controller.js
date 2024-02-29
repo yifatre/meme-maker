@@ -42,6 +42,7 @@ function renderEditor() {
     elOutline.value = line ? line.color : '#000000'
     elFill.value = line ? line.fill : '#ffffff'
     elFont.value = line ? line.font : 'Impact'
+    elFont.style.fontFamily = elFont.value
 }
 
 
@@ -53,6 +54,7 @@ function drawText(line, lineIdx) {
 
     gCtx.font = `${line.size}px ${line.font}`
     gCtx.textBaseline = 'top'
+    gCtx.textAlign = line.alignDir
 
     gCtx.fillText(line.txt, line.x, line.y)
     gCtx.strokeText(line.txt, line.x, line.y)
@@ -64,10 +66,6 @@ function onTextInput(txt) {
     renderMeme()
 }
 
-function onDownloadMeme(elLink) {
-    const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
-    elLink.href = imgContent
-}
 
 function onChangeOutline(color) {
     setLineColor(color, gCurrLineIdx)
@@ -84,6 +82,11 @@ function onChangeFontSize(dSize) {
     renderMeme()
 }
 
+function onAlignText(alignDir) {
+    setLineAlignDir(alignDir, gCurrLineIdx)
+    renderMeme()
+}
+
 function onAddLine() {
     if (!document.querySelector('#txt').value) return
     gCurrLineIdx = addLine() - 1
@@ -95,8 +98,8 @@ function onSwitchLine() {
     switchLineToEdit()
 }
 
-function onChangeFont(fontName) {
-    setLineFont(fontName, gCurrLineIdx)
+function onChangeFont(elFont) {
+    setLineFont(elFont.value, gCurrLineIdx)
     renderMeme()
 }
 
@@ -105,7 +108,9 @@ function drawLineFrame() {
     gCtx.beginPath()
     gCtx.lineWidth = '2'
     gCtx.strokeStyle = '#ffffff'
-    gCtx.rect(line.x - 10, line.y - 5, line.width + 20, line.size + 10)
+    if (line.alignDir === 'left') gCtx.rect(line.x - 10, line.y - 5, line.width + 20, line.size + 10)
+    else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width / 2, line.y - 5, line.width + 20, line.size + 10)
+    else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width, line.y - 5, line.width + 20, line.size + 10)
     gCtx.stroke()
     gCtx.closePath()
 }
@@ -152,6 +157,14 @@ function switchLineToEdit() {
     renderMeme()
 }
 
+function onSaveMeme() {
+    saveMeme()
+}
+
+function onDownloadMeme(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
+    elLink.href = imgContent
+}
 // function resizeCanvas() {
 //     const elContainer = document.querySelector('.canvas-container')
 

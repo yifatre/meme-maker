@@ -1,25 +1,27 @@
-@media(width <=600px) {
-    .open-menu{
+@media(width <=770px) {
+    .open-menu {
         width: 2rem;
         border: none;
         background: none;
     }
-    
-    .main-nav{
+
+    .main-nav {
         position: fixed;
         inset: 6rem 0 0;
         height: 100dvh;
-    
+
         transform: translateX(100%);
         transition: transform 600ms;
 
-        background-color: #f9f9f9ce;;
+        background-color: #f9f9f9ce;
+        ;
     }
 
-    .main-nav ul{
+    .main-nav ul {
         flex-direction: column;
         gap: 0.5rem;
-
+        margin-inline: auto;
+        width: 98vw;
         padding: 0.5rem 1rem;
     }
 
@@ -30,25 +32,34 @@
 
         width: 100%;
         background-color: var(--coral);
-    }
-    
-    .main-nav ul>li>a {
-        padding: 1rem;
+        border:none;
     }
 
-    
-    body.menu-open .main-nav{
+    .main-nav ul>li>* {
+        padding: 1rem;
+        height: 100%;
+        width: 100%;
+    }
+
+
+    body.menu-open .main-nav {
         transform: translateX(0);
     }
 }
 
-@media(width>600px) {
-    .open-menu{
+@media(width>770px) {
+    .open-menu {
         display: none;
     }
 
 
     .edit {
         grid-template-areas: "canvas controls";
+    }
+
+    .main-nav ul>li {
+
+        width: 8rem;
+        border-inline-start: 1px solid black;
     }
 }

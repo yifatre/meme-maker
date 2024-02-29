@@ -3,22 +3,31 @@ header {
     background-color: var(--coral);
     
     height: 6rem;
-    padding-inline: 1rem;
+    padding-inline-start: 1rem;
 }
 
 .main-nav ul{
-    gap: 2rem;
+    height: 6rem;
 }
 
 .main-nav li{
-    width: 4rem;
+    
+    height: 100%;
 }
 
-.main-nav a{
+.main-nav button{
+    text-align: center;
     text-decoration: none;
     color: inherit;
+    height: 100%;
+    width: 100%;
+    font-size: 1rem;
+
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-.main-nav a:hover{
+.main-nav button:hover{
     font-weight: bold;
 }
