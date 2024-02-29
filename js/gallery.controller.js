@@ -12,23 +12,28 @@ function renderGallery(word = '') {
     elGallery.innerHTML = imgsHTMLs.join('')
 }
 
-function onSearch(word){
+function onSearch(word) {
     updateKeywordsMap(word)
-    renderGallery()
+    renderGallery(word)
     renderKeywordsMap()
+}
+
+function onClickKeyword(word) {
+    document.querySelector('#img-filter').value = word
+    onSearch(word)
 }
 
 function renderKeywordsMap() {
     const words = getKeywordsMap()
     var wordsHTMLs = ''
     for (const word in words) {
-        wordsHTMLs += `<span style="font-size: ${1 + 0.03 * words[word]}rem">${word}</span>`
+        wordsHTMLs += `<span onclick="onClickKeyword('${word}')" style="font-size: ${1 + 0.03 * words[word]}rem">${word}</span>`
     }
     document.querySelector('.keywords-map').innerHTML = wordsHTMLs
 }
 
 function clearSearch() {
-    document.querySelector('#imgFilter').value = ''
+    document.querySelector('#img-filter').value = ''
     renderGallery()
 }
 

@@ -157,7 +157,7 @@ function _createLine(txt = '') {
 function _createImgs() {
     gImgs = [
         { id: 1, url: `img/${1}.jpg`, keywords: ['funny', 'trump'] },
-        { id: 2, url: `img/${2}.jpg`, keywords: ['funny', 'dog', 'cute'] },
+        { id: 2, url: `img/${2}.jpg`, keywords: ['funny', 'look', 'cute'] },
         { id: 3, url: `img/${3}.jpg`, keywords: ['funny', 'dog', 'cute', 'baby'] },
         { id: 4, url: `img/${4}.jpg`, keywords: ['cute', 'cat'] },
         { id: 5, url: `img/${5}.jpg`, keywords: ['funny', 'kid'] },
@@ -168,13 +168,19 @@ function _createImgs() {
         { id: 10, url: `img/${10}.jpg`, keywords: ['funny', 'obama'] },
         { id: 11, url: `img/${11}.jpg`, keywords: ['funny', 'kiss'] },
         { id: 12, url: `img/${12}.jpg`, keywords: ['funny', 'man'] },
-        { id: 13, url: `img/${13}.jpg`, keywords: ['funny', 'toast'] },
-        { id: 14, url: `img/${14}.jpg`, keywords: ['funny', 'sunglasses', 'man'] },
-        { id: 15, url: `img/${15}.jpg`, keywords: ['funny', 'simply'] },
-        { id: 16, url: `img/${16}.jpg`, keywords: ['funny'] },
-        { id: 17, url: `img/${17}.jpg`, keywords: ['funny', 'putin'] },
-        { id: 18, url: `img/${18}.jpg`, keywords: ['funny', 'everywhere'] },
-        { id: 19, url: `img/${19}.jpg`, keywords: ['funny', 'everywhere'] }
+        { id: 13, url: `img/${13}.jpg`, keywords: ['funny', 'everywhere'] },
+        { id: 14, url: `img/${14}.jpg`, keywords: ['funny'] },
+        { id: 15, url: `img/${15}.jpg`, keywords: ['funny', 'kids'] },
+        { id: 16, url: `img/${16}.jpg`, keywords: ['funny', 'dog'] },
+        { id: 17, url: `img/${17}.jpg`, keywords: ['toast'] },
+        { id: 18, url: `img/${18}.jpg`, keywords: ['sunglasses', 'man'] },
+        { id: 19, url: `img/${19}.jpg`, keywords: ['funny', 'man'] },
+        { id: 20, url: `img/${20}.jpg`, keywords: ['funny', 'trump'] },
+        { id: 21, url: `img/${21}.jpg`, keywords: ['funny', 'dog', 'cute'] },
+        { id: 22, url: `img/${22}.jpg`, keywords: ['funny', 'simply'] },
+        { id: 23, url: `img/${23}.jpg`, keywords: ['funny', 'oprah'] },
+        { id: 24, url: `img/${24}.jpg`, keywords: ['funny'] },
+        { id: 25, url: `img/${25}.jpg`, keywords: ['funny', 'putin'] }
     ]
 }
 

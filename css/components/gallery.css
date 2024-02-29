@@ -1,5 +1,6 @@
 .keywords-map span{
     margin-inline: 0.2rem;
+    cursor: pointer;
 }
 
 .gallery-container {
