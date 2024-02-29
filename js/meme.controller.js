@@ -164,12 +164,7 @@ function onDownloadMeme(elLink) {
 function imageToData() {
     return gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
 }
-// function resizeCanvas() {
-//     const elContainer = document.querySelector('.canvas-container')
 
-//     gElCanvas.width = elContainer.offsetWidth
-//     gElCanvas.height = elContainer.offsetHeight
-// }
 
 function addEventListeners() {
     // * Mouse Listeners

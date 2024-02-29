@@ -2,34 +2,45 @@
 
 var gIsSavedMemes = false
 
-function renderGallery() {
+function renderGallery(word = '') {
     var imgsHTMLs
-    // if (gIsSavedMemes) {
-    //     imgsHTMLs = savedMemesToGallery()
 
-    // } else {
-        const imgs = getImgs()
-        imgsHTMLs = imgs.map(img => `<img src="${img.url}" alt="" onclick="onImgSelect(${img.id})">`)
-    // }
+    const imgs = getImgs(word)
+    imgsHTMLs = imgs.map(img => `<img src="${img.url}" alt="" onclick="onImgSelect(${img.id})">`)
 
     const elGallery = document.querySelector('.gallery-container')
-    elGallery.innerHTML += imgsHTMLs.join('')
+    elGallery.innerHTML = imgsHTMLs.join('')
 }
 
 function onImgSelect(imgId) {
-    // if (gIsSavedMemes) {
-    //     setCurrentMeme(imgId)
-    // }
-    // else {
-        setMemeImg(imgId, 0)/************************ */
-    // }
+
+    createMeme(imgId)
+    goToEditMeme()
+
+}
+
+function getSurpriseMeme() {
+    createMeme(getRandomIntInclusive(1, 18), 'Wisdom is acquired when hiding under the bed with a saucepan on your head')
+    goToEditMeme()
+}
+
+function goToEditMeme() {
     renderMeme()
-    document.querySelector('.gallery-container').style.display = 'none'
-    // document.querySelector('.canvas-container').style.display = 'block'
+    document.querySelector('.gallery').style.display = 'none'
+    document.querySelector('.saves').style.display = 'block'
     document.querySelector('.edit').style.display = 'grid'
 }
 
-function savedMemesToGallery() {
-    const memes = getSavedMemes()
-    return memes.map(meme => `<div onclick="onImageSelect('${meme.memeInfo.id}')">meme id:${meme.memeInfo.id}</div>`)
+
+function renderMeme() {
+    const meme = getSavedMemes()[0]
+    const img = new Image()
+    img.src = meme.url
+    img.onload = () => {
+        renderImg(img)
+        if (!meme.lines.length) return
+        meme.lines.forEach((line, lineIdx) => { drawText(line, lineIdx) })
+        drawLineFrame()
+    }
+    renderEditor()
 }

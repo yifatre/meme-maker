@@ -9,15 +9,22 @@
 
 
     width: 95vw;
-    margin: auto;
+    margin: 1rem auto;
 
     /* display: none; */
 }
 
-.gallery-container img {
+.gallery button{
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    margin-inline-start: 2rem;
+}
+
+.gallery-container * {
     cursor: pointer;
     transition: transform 500ms;
 }
-.gallery-container img:hover {
+.gallery-container *:hover {
     transform: scale(1.03);
 }

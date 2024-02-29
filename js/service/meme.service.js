@@ -2,18 +2,23 @@
 
 const MEME_DB = 'meme'
 
-var gImgs = []//[{ id: 4, url: 'img/4.jpg', keywords: ['funny', 'cat'] }, { id: 18, url: 'img/18.jpg', keywords: ['funny', 'cat'] }]
+var gImgs = []
 _createImgs()
 
-var gMeme = {
-    id: makeId(),
-    selectedImgId: 4,
-    selectedLineIdx: 0,
-    lines: [
-        { txt: 'I sometimes eat Falafel', size: 20, color: '#ff0000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Segoe UI', alignDir: 'left' },
-        { txt: 'Me too', size: 40, color: '#1100ff', fill: '#ffffff', x: 50, y: 50, width: 0, font: 'Impact', alignDir: 'left' }
-    ]
-}
+var gMeme = {}
+// {
+//     id: makeId(),
+//     selectedImgId: 4,
+//     selectedLineIdx: 0,
+//     lines: [
+//         { txt: 'I sometimes eat Falafel', size: 20, color: '#ff0000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Segoe UI', alignDir: 'left' },
+//         { txt: 'Me too', size: 40, color: '#1100ff', fill: '#ffffff', x: 50, y: 50, width: 0, font: 'Impact', alignDir: 'left' }
+//     ]
+// }
+
+
+
+
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
 
 /*********************************/
@@ -29,8 +34,8 @@ function getNumOfLines() {
     return gMeme.lines.length
 }
 
-function getImgs() {
-    return gImgs
+function getImgs(word = '') {
+    return gImgs.filter(img => img.keywords.filter(keyword => keyword.toLowerCase().includes(word.toLowerCase())).length)
 }
 
 function getImgById(id) {
@@ -51,32 +56,32 @@ function switchSelectedLine() {
     }
 }
 
-function setMemeImg(imgId,) {
+function setMemeImg(imgId) {
     gMeme.selectedImgId = imgId
 }
 
-function setLineText(txt,) {
+function setLineText(txt) {
     if (!getNumOfLines()) addLine()
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
-function setLineAlignDir(alignDir,) {
+function setLineAlignDir(alignDir) {
     gMeme.lines[gMeme.selectedLineIdx].alignDir = alignDir
 }
 
-function setLineColor(color,) {
+function setLineColor(color) {
     gMeme.lines[gMeme.selectedLineIdx].color = color
 }
 
-function setLineFill(color,) {
+function setLineFill(color) {
     gMeme.lines[gMeme.selectedLineIdx].fill = color
 }
 
-function setLineSize(dSize,) {
+function setLineSize(dSize) {
     gMeme.lines[gMeme.selectedLineIdx].size += dSize
 }
 
-function setLineWidth(width, lineIdx,) {
+function setLineWidth(width, lineIdx) {
     gMeme.lines[lineIdx].width = width
 }
 
@@ -84,11 +89,11 @@ function setLineFont(fontName,) {
     gMeme.lines[gMeme.selectedLineIdx].font = fontName
 }
 
-function setLineY(dy,) {
+function setLineY(dy) {
     gMeme.lines[gMeme.selectedLineIdx].y += dy
 }
 
-function setLineX(dx,) {
+function setLineX(dx) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
 }
 
@@ -106,7 +111,7 @@ function removeLine(lineIdx,) {
 function saveMeme(memeImgData) {
     let storedMemes = loadFromStorage(MEME_DB)
     if (!storedMemes) storedMemes = []
-    storedMemes.push({ memeInfo: gMeme, memeImgData })
+    storedMemes.push(gMeme)
     saveToStorage(MEME_DB, storedMemes)
 }
 
@@ -124,21 +129,38 @@ function setCurrentMeme(memeId) {
 }
 
 
-function _createMeme(imgId) {
-    return {
+function createMeme(imgId, txt = '') {
+    gMeme = {
         id: makeId(),
         selectedImgId: imgId,
         selectedLineIdx: 0,
-        lines: [_createLine()]
+        lines: [_createLine(txt)]
     }
 }
 
-function _createLine() {
-    return { txt: '', size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact', alignDir: 'left' }
+function _createLine(txt = '') {
+    return { txt, size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact', alignDir: 'left' }
 }
 
 function _createImgs() {
-    for (let i = 1; i <= 18; i++) {
-        gImgs.push({ id: i, url: `img/${i}.jpg`, keywords: ['funny', 'cat'] })
-    }
+    gImgs = [
+        { id: 1, url: `img/${1}.jpg`, keywords: ['funny', 'trump'] },
+        { id: 2, url: `img/${2}.jpg`, keywords: ['funny', 'dog', 'cute'] },
+        { id: 3, url: `img/${3}.jpg`, keywords: ['funny', 'dog', 'cute', 'baby'] },
+        { id: 4, url: `img/${4}.jpg`, keywords: ['cute', 'cat'] },
+        { id: 5, url: `img/${5}.jpg`, keywords: ['funny', 'kid'] },
+        { id: 6, url: `img/${6}.jpg`, keywords: ['funny', 'man'] },
+        { id: 7, url: `img/${7}.jpg`, keywords: ['funny', 'kid'] },
+        { id: 8, url: `img/${8}.jpg`, keywords: ['funny', 'man'] },
+        { id: 9, url: `img/${9}.jpg`, keywords: ['funny', 'kid'] },
+        { id: 10, url: `img/${10}.jpg`, keywords: ['funny', 'obama'] },
+        { id: 11, url: `img/${11}.jpg`, keywords: ['funny', 'kiss'] },
+        { id: 12, url: `img/${12}.jpg`, keywords: ['funny', 'man'] },
+        { id: 13, url: `img/${13}.jpg`, keywords: ['funny', 'toast'] },
+        { id: 14, url: `img/${14}.jpg`, keywords: ['funny', 'sunglasses', 'man'] },
+        { id: 15, url: `img/${15}.jpg`, keywords: ['funny', 'simply'] },
+        { id: 16, url: `img/${16}.jpg`, keywords: ['funny'] },
+        { id: 17, url: `img/${17}.jpg`, keywords: ['funny', 'putin'] },
+        { id: 18, url: `img/${18}.jpg`, keywords: ['funny', 'everywhere'] }
+    ]
 }
