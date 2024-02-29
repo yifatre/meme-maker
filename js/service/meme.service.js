@@ -123,7 +123,9 @@ function removeLine(lineIdx) {
 function saveMeme(memeImgData) {
     let storedMemes = loadFromStorage(MEME_DB)
     if (!storedMemes) storedMemes = []
-    storedMemes.push({ gMeme, memeImgData })
+    let memeIdx = storedMemes.findIndex(meme => meme.gMeme.id === gMeme.id)
+    if (memeIdx > -1) storedMemes[memeIdx] = { gMeme, memeImgData }
+    else storedMemes.push({ gMeme, memeImgData })
     saveToStorage(MEME_DB, storedMemes)
 }
 
