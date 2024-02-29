@@ -5,8 +5,6 @@ let gCtx
 
 const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
-let gCurrMemeIdx = 0
-
 
 function renderMeme() {
     const meme = getMeme()
@@ -156,12 +154,12 @@ function imageToData() {
 }
 
 function onMouseDown(ev) {
-    const { offsetX, offsetY, clientX, clientY } = ev
+    const pos = getEvPos(ev)
     const lines = getMeme().lines
     const clickedLine = lines.findIndex(line => {
         const { x, y, size, width } = line
-        return offsetX >= x && offsetX <= x + width &&
-            offsetY >= y && offsetY <= y + size
+        return pos.x >= x && pos.x <= x + width &&
+            pos.y >= y && pos.y <= y + size
     })
     if (clickedLine === -1) return
     lines[clickedLine].isDrag = true
@@ -180,13 +178,10 @@ function onDrag(ev) {
     // Calc the delta, the diff we moved
     const dx = pos.x - line.x
     const dy = pos.y - line.y
-    // moveCircle(dx, dy)
+
     setLineX(dx)
     setLineY(dy)
 
-    // Save the last pos, we remember where we`ve been and move accordingly
-
-    // The canvas is rendered again after every move
     renderMeme()
 }
 
