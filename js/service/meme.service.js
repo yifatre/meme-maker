@@ -6,6 +6,7 @@ var gImgs = []//[{ id: 4, url: 'img/4.jpg', keywords: ['funny', 'cat'] }, { id: 
 _createImgs()
 
 var gMeme = {
+    id: makeId(),
     selectedImgId: 4,
     selectedLineIdx: 0,
     lines: [
@@ -20,8 +21,8 @@ function getMeme() {
     return gMeme
 }
 
-function getLine(lineIdx) {
-    return gMeme.lines[lineIdx]
+function getLine() {
+    return gMeme.lines[gMeme.selectedLineIdx]
 }
 
 function getNumOfLines() {
@@ -37,65 +38,104 @@ function getImgById(id) {
 }
 
 /*********************************/
-function setMemeImg(imgId) {
+function setSelectedLineIdx(lineIdx,) {
+    gMeme.selectedLineIdx = lineIdx
+}
+
+function switchSelectedLine() {
+    if (!getNumOfLines()) {
+        setSelectedLineIdx(0,)
+    } else {
+        gMeme.selectedLineIdx--
+        if (gMeme.selectedLineIdx < 0) setSelectedLineIdx(getNumOfLines() - 1,)
+    }
+}
+
+function setMemeImg(imgId,) {
     gMeme.selectedImgId = imgId
 }
 
-function setLineText(txt, lineIdx = 0) {
+function setLineText(txt,) {
     if (!getNumOfLines()) addLine()
-    gMeme.lines[lineIdx].txt = txt
+    gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
-function setLineAlignDir(alignDir, lineIdx) {
-    gMeme.lines[lineIdx].alignDir = alignDir
+function setLineAlignDir(alignDir,) {
+    gMeme.lines[gMeme.selectedLineIdx].alignDir = alignDir
 }
 
-function setLineColor(color, lineIdx = 0) {
-    gMeme.lines[lineIdx].color = color
+function setLineColor(color,) {
+    gMeme.lines[gMeme.selectedLineIdx].color = color
 }
 
-function setLineFill(color, lineIdx = 0) {
-    gMeme.lines[lineIdx].fill = color
+function setLineFill(color,) {
+    gMeme.lines[gMeme.selectedLineIdx].fill = color
 }
 
-function setLineSize(dSize, lineIdx = 0) {
-    gMeme.lines[lineIdx].size += dSize
+function setLineSize(dSize,) {
+    gMeme.lines[gMeme.selectedLineIdx].size += dSize
 }
 
-function setLineWidth(width, lineIdx) {
+function setLineWidth(width, lineIdx,) {
     gMeme.lines[lineIdx].width = width
 }
 
-function setLineFont(fontName, lineIdx) {
-    gMeme.lines[lineIdx].font = fontName
+function setLineFont(fontName,) {
+    gMeme.lines[gMeme.selectedLineIdx].font = fontName
 }
 
-function setLineY(dy, lineIdx) {
-    gMeme.lines[lineIdx].y += dy
+function setLineY(dy,) {
+    gMeme.lines[gMeme.selectedLineIdx].y += dy
 }
 
-function setLineX(dx, lineIdx) {
-    gMeme.lines[lineIdx].x += dx
+function setLineX(dx,) {
+    gMeme.lines[gMeme.selectedLineIdx].x += dx
 }
 
 /*********************************/
 function addLine() {
-    return gMeme.lines.push({ txt: '', size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact', alignDir: 'left' })
+    gMeme.lines.push(_createLine())
+    gMeme.selectedLineIdx = getNumOfLines() - 1
 }
 
-function removeLine(lineIdx) {
+function removeLine(lineIdx,) {
     if (!getNumOfLines()) return
     return gMeme.lines.splice(lineIdx, 1)
 }
 
-function saveMeme() {
-    const storedMemes = loadFromStorage(MEME_DB)
+function saveMeme(memeImgData) {
+    let storedMemes = loadFromStorage(MEME_DB)
     if (!storedMemes) storedMemes = []
-    storedMemes.push(gMeme)
+    storedMemes.push({ memeInfo: gMeme, memeImgData })
     saveToStorage(MEME_DB, storedMemes)
 }
 
+function getSavedMemes() {
+    return loadFromStorage(MEME_DB)
+}
 
+function getSavedMemeById(memeId) {
+    const memes = loadFromStorage(MEME_DB)
+    return memes.find(meme => meme.memeInfo.id === memeId)
+}
+
+function setCurrentMeme(memeId) {
+    gMeme = getSavedMemeById(memeId)
+}
+
+
+function _createMeme(imgId) {
+    return {
+        id: makeId(),
+        selectedImgId: imgId,
+        selectedLineIdx: 0,
+        lines: [_createLine()]
+    }
+}
+
+function _createLine() {
+    return { txt: '', size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact', alignDir: 'left' }
+}
 
 function _createImgs() {
     for (let i = 1; i <= 18; i++) {

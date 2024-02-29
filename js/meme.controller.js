@@ -5,11 +5,12 @@ let gCtx
 
 const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
+let gCurrMemeIdx = 0
 let gCurrLineIdx = 0
 
 
 function renderMeme() {
-    const meme = getMeme()
+    const meme = getMeme(gCurrMemeIdx)
     const img = new Image()
     img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
@@ -36,7 +37,7 @@ function renderEditor() {
     const elFill = elEditor.querySelector('#fill')
     const elFont = elEditor.querySelector('#font')
 
-    const line = getLine(gCurrLineIdx)
+    const line = getLine(gCurrMemeIdx)
 
     elTxt.value = line ? line.txt : ''
     elOutline.value = line ? line.color : '#000000'
@@ -58,38 +59,38 @@ function drawText(line, lineIdx) {
 
     gCtx.fillText(line.txt, line.x, line.y)
     gCtx.strokeText(line.txt, line.x, line.y)
-    setLineWidth(gCtx.measureText(line.txt).width, lineIdx)
+    setLineWidth(gCtx.measureText(line.txt).width, lineIdx, gCurrMemeIdx)
 }
 
 function onTextInput(txt) {
-    setLineText(txt, gCurrLineIdx)
+    setLineText(txt, gCurrMemeIdx)
     renderMeme()
 }
 
 
 function onChangeOutline(color) {
-    setLineColor(color, gCurrLineIdx)
+    setLineColor(color, gCurrMemeIdx)
     renderMeme()
 }
 
 function onChangeFill(color) {
-    setLineFill(color, gCurrLineIdx)
+    setLineFill(color, gCurrMemeIdx)
     renderMeme()
 }
 
 function onChangeFontSize(dSize) {
-    setLineSize(dSize, gCurrLineIdx)
+    setLineSize(dSize, gCurrMemeIdx)
     renderMeme()
 }
 
 function onAlignText(alignDir) {
-    setLineAlignDir(alignDir, gCurrLineIdx)
+    setLineAlignDir(alignDir, gCurrMemeIdx)
     renderMeme()
 }
 
 function onAddLine() {
     if (!document.querySelector('#txt').value) return
-    gCurrLineIdx = addLine() - 1
+    addLine(gCurrMemeIdx)
     // renderEditor()
     renderMeme()
 }
@@ -99,12 +100,12 @@ function onSwitchLine() {
 }
 
 function onChangeFont(elFont) {
-    setLineFont(elFont.value, gCurrLineIdx)
+    setLineFont(elFont.value, gCurrMemeIdx)
     renderMeme()
 }
 
 function drawLineFrame() {
-    let line = getLine(gCurrLineIdx)
+    let line = getLine(gCurrMemeIdx)
     gCtx.beginPath()
     gCtx.lineWidth = '2'
     gCtx.strokeStyle = '#ffffff'
@@ -117,53 +118,51 @@ function drawLineFrame() {
 
 function onMouseDown(ev) {
     const { offsetX, offsetY, clientX, clientY } = ev
-    const lines = getMeme().lines
+    const lines = getMeme(gCurrMemeIdx).lines
     const clickedLine = lines.findIndex(line => {
         const { x, y, size, width } = line
         return offsetX >= x && offsetX <= x + width &&
             offsetY >= y && offsetY <= y + size
     })
-    console.log('hoveredLine:', clickedLine);
+    console.log('clickedLine:', clickedLine);
     if (clickedLine === -1) return
-    gCurrLineIdx = clickedLine
-    console.log('gCurrLineIdx:', gCurrLineIdx);
+    setSelectedLineIdx(clickedLine, gCurrMemeIdx)
     renderMeme()
 }
 
 function onMoveY(dy) {
-    setLineY(dy, gCurrLineIdx)
+    setLineY(dy, gCurrMemeIdx)
     renderMeme()
 }
 
 function onMoveX(dx) {
-    setLineX(dx, gCurrLineIdx)
+    setLineX(dx, gCurrMemeIdx)
     renderMeme()
 }
 
 
 function onDeleteLine() {
-    if (removeLine(gCurrLineIdx))
+    if (removeLine(gCurrMemeIdx))
         switchLineToEdit()
 }
 
 function switchLineToEdit() {
-    const numOfLines = getNumOfLines()
-    if (!numOfLines) {
-        gCurrLineIdx = 0
-    } else {
-        gCurrLineIdx--
-        if (gCurrLineIdx < 0) gCurrLineIdx = numOfLines - 1
-    }
+    switchSelectedLine(gCurrMemeIdx)
     renderMeme()
 }
 
 function onSaveMeme() {
-    saveMeme()
+    saveMeme(gCurrMemeIdx, imageToData())
 }
 
 function onDownloadMeme(elLink) {
-    const imgContent = gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
+    const imgContent = imageToData()
+    console.log('imgContent:', imgContent);
     elLink.href = imgContent
+}
+
+function imageToData() {
+    return gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
 }
 // function resizeCanvas() {
 //     const elContainer = document.querySelector('.canvas-container')
