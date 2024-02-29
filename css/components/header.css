@@ -6,19 +6,19 @@ header {
     padding-inline: 1rem;
 }
 
-header nav ul{
+.main-nav ul{
     gap: 2rem;
 }
 
-header nav li{
+.main-nav li{
     width: 4rem;
 }
 
-header nav a{
+.main-nav a{
     text-decoration: none;
     color: inherit;
 }
 
-header nav a:hover{
+.main-nav a:hover{
     font-weight: bold;
 }

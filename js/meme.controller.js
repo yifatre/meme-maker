@@ -37,7 +37,7 @@ function renderEditor() {
     const elFont = elEditor.querySelector('#font')
 
     const line = getLine(gCurrLineIdx)
-    // if(!line)
+
     elTxt.value = line ? line.txt : ''
     elOutline.value = line ? line.color : '#000000'
     elFill.value = line ? line.fill : '#ffffff'
@@ -87,7 +87,8 @@ function onChangeFontSize(dSize) {
 function onAddLine() {
     if (!document.querySelector('#txt').value) return
     gCurrLineIdx = addLine() - 1
-    renderEditor()
+    // renderEditor()
+    renderMeme()
 }
 
 function onSwitchLine() {
