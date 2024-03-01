@@ -45,6 +45,12 @@
     body.menu-open .main-nav {
         transform: translateX(0);
     }
+
+    .editor-controls {
+        /* grid-template-columns: repeat(5, 1fr); */
+        margin-inline: auto;
+
+    }
 }
 
 @media(width>770px) {
