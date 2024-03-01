@@ -29,7 +29,7 @@ function renderKeywordsMap() {
     const words = getKeywordsMap()
     var wordsHTMLs = ''
     for (const word in words) {
-        wordsHTMLs += `<span onclick="onClickKeyword('${word}')" style="font-size: ${1 + 0.03 * words[word]}rem">${word}</span>`
+        wordsHTMLs += `<span onclick="onClickKeyword('${word}')" style="font-size: ${0.8 + 0.06 * words[word]}rem">${word}</span>`
     }
     document.querySelector('.keywords-map').innerHTML = wordsHTMLs
 }
@@ -51,9 +51,9 @@ function getSurpriseMeme() {
 
 function goToEditMeme() {
     renderMeme()
-    document.querySelector('.gallery').style.display = 'none'
-    document.querySelector('.saves').style.display = 'block'
-    document.querySelector('.edit').style.display = 'grid'
+    document.querySelector('.gallery').classList.add('hide')
+    document.querySelector('.saves').classList.remove('hide')
+    document.querySelector('.edit').classList.remove('hide')
 }
 
 function editMeme(memeId) {

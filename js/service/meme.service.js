@@ -21,7 +21,7 @@ var gMeme = {}
 
 
 
-var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
+var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2, 'dog': 8, 'putin': 5 }
 
 /*********************************/
 function getMeme() {

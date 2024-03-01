@@ -4,8 +4,6 @@
         "canvas"
         "controls";
     margin: 0 auto;
-
-    display: none;
 }
 
 .canvas-container {
@@ -33,7 +31,7 @@
     cursor: pointer;
 }
 
-#txt{
+#txt {
     grid-column: span 3;
     width: 100%;
     padding: 0.3rem;
@@ -45,20 +43,21 @@
     text-align: center;
     padding: 0;
 
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
 
     position: relative;
     background: none;
     border: none;
 
+    transition: transform 500ms;
 }
 
-.editor-controls button.outline{
-    
+.editor-controls button:hover *{
+    transform: scale(1.03);
 }
 
-#font{
+#font {
     height: 1.875rem;
     width: 5.625rem;
     text-align: center;
@@ -67,12 +66,15 @@
 #font option:nth-child(1) {
     font-family: Impact;
 }
+
 #font option:nth-child(2) {
     font-family: 'Segoe UI';
 }
+
 #font option:nth-child(3) {
     font-family: cursive;
 }
+
 #font option:nth-child(4) {
     font-family: Georgia;
 }
@@ -85,15 +87,16 @@
     opacity: 0;
     width: 100%;
     height: 100%;
-    
+
 }
 
-.stickers{
+.stickers {
     grid-column: span 3;
 }
 
-.stickers button{
+.stickers button {
     background: none;
     border: none;
     font-size: 1.5em;
+    margin-inline: 0.3rem;
 }

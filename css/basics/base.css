@@ -6,12 +6,14 @@
 body {
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Impact, Verdana, sans-serif;
+    color: #222222;
     background-color: var(--off-white);
     margin: 0;
 }
 
 button {
     cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1,
@@ -37,6 +39,3 @@ img {
     width: 100%;
 }
 
-.saves {
-    display: none;
-}

@@ -16,16 +16,16 @@ function onOpenMenu() {
 
 function onOpenGallery() {
     renderGallery()
-    document.querySelector('.gallery').style.display = ''
-    document.querySelector('.saves').style.display = 'none'
-    document.querySelector('.edit').style.display = 'none'
+    document.querySelector('.gallery').classList.remove('hide')
+    document.querySelector('.saves').classList.add('hide')
+    document.querySelector('.edit').classList.add('hide')
     document.body.classList.remove('menu-open')
 }
 
 function onOpenSavedMemes() {
     renderSavedMemes()
-    document.querySelector('.gallery').style.display = ''
-    document.querySelector('.saves').style.display = 'none'
-    document.querySelector('.edit').style.display = 'none'
+    document.querySelector('.gallery').classList.remove('hide')
+    document.querySelector('.saves').classList.add('hide')
+    document.querySelector('.edit').classList.add('hide')
     document.body.classList.remove('menu-open')
 }

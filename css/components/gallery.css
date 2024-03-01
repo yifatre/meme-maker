@@ -1,27 +1,61 @@
 .search {
+    position: relative;
     justify-self: end;
+    align-self: center;
 }
 
 #img-filter {
     border: none;
     border-bottom-style: solid;
     border-width: 1px;
+    border-color: var(--off-black);
     background: none;
+    width: 10rem;
+    font-size: 1rem;
 }
 
 button.clear {
     background: none;
     border: none;
+    position: absolute;
+    right: 0;
+    top: 0.125rem;
 }
 
 .keywords-map{
     grid-column: 2/3;
     justify-self: start;
+
+    align-items: baseline;
+    height: 3rem;
 }
 
 .keywords-map span {
     margin-inline: 0.3rem;
     cursor: pointer;
+}
+
+.gallery button.surprise {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    
+    justify-self: end;
+    align-self: center;
+}
+
+.upload-img-container{
+    justify-self: start;
+    align-self: center;
+}
+
+.upload-img-container label{
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.msg{
+    grid-column: span 2;
 }
 
 .gallery-container {
@@ -38,12 +72,6 @@ button.clear {
     margin: 1rem auto;
 }
 
-.gallery button.surprise {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    margin-inline-start: 2rem;
-}
 
 .img-holder {
     width: 100%;
