@@ -1,0 +1,21 @@
+
+body.grid {
+    grid-template-columns: 10px minmax(1fr, 950px) 10px;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+        "header header  header"
+        ".      main    .     "
+        "footer footer  footer"
+    ;
+    row-gap: 1rem;
+}
+
+main {
+    grid-area: main;
+}
+
+.gallery {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+}
+

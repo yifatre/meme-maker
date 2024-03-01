@@ -16,7 +16,7 @@ function onOpenMenu() {
 
 function onOpenGallery() {
     renderGallery()
-    document.querySelector('.gallery').style.display = 'block'
+    document.querySelector('.gallery').style.display = ''
     document.querySelector('.saves').style.display = 'none'
     document.querySelector('.edit').style.display = 'none'
     document.body.classList.remove('menu-open')
@@ -24,7 +24,7 @@ function onOpenGallery() {
 
 function onOpenSavedMemes() {
     renderSavedMemes()
-    document.querySelector('.gallery').style.display = 'block'
+    document.querySelector('.gallery').style.display = ''
     document.querySelector('.saves').style.display = 'none'
     document.querySelector('.edit').style.display = 'none'
     document.body.classList.remove('menu-open')

@@ -1,5 +1,7 @@
 header {
-    margin: 0 0 1rem;
+   grid-area: header;
+
+    margin: 0;
     background-color: var(--coral);
     
     height: 6rem;
