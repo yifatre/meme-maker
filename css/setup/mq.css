@@ -14,7 +14,7 @@
         transition: transform 600ms;
 
         background-color: #f9f9f9ce;
-        ;
+        z-index: 5;
     }
 
     .main-nav ul {
@@ -32,7 +32,7 @@
 
         width: 100%;
         background-color: var(--coral);
-        border:none;
+        border: none;
     }
 
     .main-nav ul>li>* {
@@ -43,7 +43,8 @@
 
 
     body.menu-open .main-nav {
-        transform: translateX(0);
+        transform:
+            translateX(0);
     }
 
     .editor-controls {

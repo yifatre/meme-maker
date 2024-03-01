@@ -139,6 +139,22 @@
     grid-area: down;
 }
 
+.editor-controls .btn-up:hover {
+    transform: translateY(-10%);
+}
+
+.editor-controls .btn-left:hover {
+    transform: translateX(-10%);
+}
+
+.editor-controls .btn-right:hover {
+    transform: translateX(10%);
+}
+
+.editor-controls .btn-down:hover {
+    transform: translateY(10%);
+}
+
 .editor-controls button::after {
     background: rgba(255, 255, 255, 0.8);
     border: none;
@@ -195,6 +211,10 @@
     content: "Switch line";
 }
 
+.editor-controls>button:nth-of-type(10)::after {
+    content: "Delete line";
+}
+
 .arrows>button:nth-of-type(1)::after {
     content: "Move up";
     top: -1.5rem;
@@ -219,9 +239,6 @@
     right: 100%;
 }
 
-.editor-controls>button:nth-of-type(14)::after {
-    content: "Delete line";
-}
 
 .editor-controls button:hover::after {
     opacity: 1;
