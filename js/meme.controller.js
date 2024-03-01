@@ -13,7 +13,10 @@ function renderMeme() {
     img.onload = () => {
         renderImg(img)
         if (!meme.lines.length) return
-        meme.lines.forEach((line, lineIdx) => { drawText(line, lineIdx) })
+        meme.lines.forEach((line, lineIdx) => { 
+            drawText(line, lineIdx) 
+            setLineWidth(gCtx.measureText(line.txt).width, lineIdx)
+        })
         drawLineFrame()
     }
     renderEditor()
@@ -48,19 +51,19 @@ function renderEditor() {
 }
 
 
-function drawText(line, lineIdx) {
-    gCtx.lineWidth = 1
-    gCtx.strokeStyle = line.color
+function drawText(line, lineIdx, ctx = gCtx, widthRatio = 1) {
+    ctx.lineWidth = 1
+    ctx.strokeStyle = line.color
 
-    gCtx.fillStyle = line.fill
+    ctx.fillStyle = line.fill
 
-    gCtx.font = `${line.size}px ${line.font}`
-    gCtx.textBaseline = 'top'
-    gCtx.textAlign = line.alignDir
+    ctx.font = `${line.size*widthRatio}px ${line.font}`
+    ctx.textBaseline = 'top'
+    ctx.textAlign = line.alignDir
 
-    gCtx.fillText(line.txt, line.x, line.y)
-    gCtx.strokeText(line.txt, line.x, line.y)
-    setLineWidth(gCtx.measureText(line.txt).width, lineIdx)
+    ctx.fillText(line.txt, line.x*widthRatio, line.y*widthRatio)
+    ctx.strokeText(line.txt, line.x*widthRatio, line.y*widthRatio)
+    
 }
 
 function onTextInput(txt) {

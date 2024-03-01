@@ -53,6 +53,10 @@ function setSelectedLineIdx(lineIdx,) {
     gMeme.selectedLineIdx = lineIdx
 }
 
+function setSelectedImgId(imgId) {
+    gMeme.selectedImgId = imgId
+}
+
 function switchSelectedLine() {
     if (!getNumOfLines()) {
         setSelectedLineIdx(0,)
@@ -120,12 +124,20 @@ function removeLine(lineIdx) {
     return gMeme.lines.splice(lineIdx, 1)
 }
 
-function saveMeme(memeImgData) {
+function saveMeme() {
+    const img = gImgs.find(img => img.id === gMeme.selectedImgId)
+    const memeToStore = {
+        id: gMeme.id,
+        selectedImgId: gMeme.selectedImgId,
+        selectedLineIdx: gMeme.selectedLineIdx,
+        lines: gMeme.lines
+    }
+    if (img.isUserImg) memeToStore.imgData = img.url
     let storedMemes = loadFromStorage(MEME_DB)
     if (!storedMemes) storedMemes = []
-    let memeIdx = storedMemes.findIndex(meme => meme.gMeme.id === gMeme.id)
-    if (memeIdx > -1) storedMemes[memeIdx] = { gMeme, memeImgData }
-    else storedMemes.push({ gMeme, memeImgData })
+    let memeIdx = storedMemes.findIndex(meme => meme.id === gMeme.id)
+    if (memeIdx > -1) storedMemes[memeIdx] = memeToStore
+    else storedMemes.push(memeToStore)
     saveToStorage(MEME_DB, storedMemes)
 }
 
@@ -142,8 +154,8 @@ function setCurrentMeme(memeId) {
     gMeme = getSavedMemeById(memeId)
 }
 
-function addImg(imgUrl) {
-    return gImgs.unshift({ id: gImgs.length + 1, url: imgUrl, keywords: ['user'] })
+function addImg(imgUrl, isUserImg = false) {
+    return gImgs.unshift({ id: gImgs.length + 1, url: imgUrl, keywords: [''], isUserImg })
 }
 
 

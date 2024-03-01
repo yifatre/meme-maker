@@ -55,8 +55,9 @@ function goToEditMeme() {
 }
 
 function editMeme(memeId) {
-    const meme = getSavedMemes().find(meme => meme.gMeme.id === memeId)
-    createMeme(meme.gMeme.selectedImgId, '', memeId, meme.gMeme.lines)
+    const meme = getSavedMemes().find(meme => meme.id === memeId)
+    if (meme.imgData) createMeme(addImg(meme.imgData), '', memeId, meme.lines)
+    else createMeme(meme.selectedImgId, '', memeId, meme.lines)
     goToEditMeme()
 }
 
@@ -64,6 +65,7 @@ function renderSavedMemes() {
     const memes = getSavedMemes()
     const elGallery = document.querySelector('.gallery-container')
     elGallery.innerHTML = ''
+
     if (!memes) {
         const elMsg = document.querySelector('.msg-no-saved')
         elMsg.innerHTML = '<h2>No saved memes yet 😫</h2>'
@@ -72,23 +74,26 @@ function renderSavedMemes() {
     }
 
     memes.forEach((meme, i) => {
-        renderSavedMeme(meme.gMeme.id, meme.memeImgData, i, elGallery)
+        renderSavedMeme(meme, i, elGallery)
     });
 
 }
 
-function renderSavedMeme(memeId, memeImgData, i, elGallery) {
-    const canvasStr = `<div class="saved-canvas-container div_${i}"><canvas class="saved-canvas saved_${i}" height="150" width="150" onclick="editMeme('${memeId}')"></canvas><div>`
+function renderSavedMeme(meme, i, elGallery) {
+    const canvasStr = `<div class="img-holder div_${i}"><canvas width="200" height="200" class="saved_${i}" onclick="editMeme('${meme.id}')"><div>`
     elGallery.innerHTML += canvasStr
-    const elCanvas = document.querySelector(`canvas.saved_${i}`)
-    const ctx = elCanvas.getContext('2d')
     const img = new Image()
-    img.src = memeImgData
+    if (meme.imgData) img.src = meme.imgData
+    else img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
+        const elCanvas = document.querySelector(`.saved_${i}`)
+        const ctx = elCanvas.getContext('2d')
         elCanvas.height = (img.naturalHeight / img.naturalWidth) * elCanvas.width
         ctx.drawImage(img, 0, 0, elCanvas.width, elCanvas.height)
+        meme.lines.forEach((line, i) => drawText(line, i, ctx, elCanvas.width/400))
     }
 }
+
 
 function onImgInput(ev) {
     loadImageFromInput(ev, addImg)
@@ -101,9 +106,8 @@ function loadImageFromInput(ev, onImageReady) {
     reader.onload = ev => {
         let img = new Image()
         img.src = ev.target.result
-        // img.onload = () => onImageReady(img)
         img.onload = () => {
-            onImageReady(img.src)
+            onImageReady(img.src, true)
             renderGallery()
         }
     }
