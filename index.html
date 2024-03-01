@@ -47,9 +47,10 @@
             <button class="surprise" onclick="getSurpriseMeme()">Surprise me!</button>
             <div class="upload-img-container">
                 <label for="upload">Upload your own image</label>
-                <input class="hide" type="file" name="upload" id="upload" accept=".jpg, .jpeg, .png">
+                <input class="hide" type="file" name="upload" id="upload" accept="image/*"
+                    oninput="onImgInput(event)">
             </div>
-            <div class="msg hide"></div>
+            <div class="msg-no-saved hide"></div>
             <div class="gallery-container grid for-font">
             </div>
         </section>
@@ -188,12 +189,20 @@
         </section>
 
 
-        <section class="saves hide">
-            <button onclick="onSaveMeme()">Save Meme</button>
-            <a href="#" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download Meme</a>
-            <button onclick="onUploadImg()">Share on Facebook</button>
+        <section class="saves flex column hide">
+            <button onclick="onSaveMeme()">Save meme for later</button>
+            <a href="#" onclick="onDownloadMeme(this)" download="my-meme.jpg">Download meme</a>
+            <button onclick="onUploadImgToFacebook()">Share on Facebook</button>
         </section>
     </main>
+
+    <dialog class="msgs">
+        <form method="dialog">
+            <h4>Meme saved for later</h4>
+            <button>✕</button>
+        </form>
+    </dialog>
+
     <footer class="flex align-center justify-center">
         FOOTER
     </footer>

@@ -142,6 +142,10 @@ function setCurrentMeme(memeId) {
     gMeme = getSavedMemeById(memeId)
 }
 
+function addImg(imgUrl) {
+    return gImgs.unshift({ id: gImgs.length + 1, url: imgUrl, keywords: ['user'] })
+}
+
 
 function createMeme(imgId, txt = '', id, lines) {
     if (!lines) lines = [_createLine(txt)]

@@ -1,0 +1,19 @@
+.msgs {
+    border-radius: 6px;
+    border: 1px solid var(--off-black);
+
+    position: relative;
+}
+
+.msgs::backdrop {
+    background-color: var(--off-white-clear);
+}
+
+.msgs button {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+
+    background: none;
+    border: none;
+}

@@ -1,7 +1,5 @@
 'use strict'
 
-var gIsSavedMemes = false
-
 function renderGallery(word = '') {
     var imgsHTMLs
 
@@ -11,7 +9,7 @@ function renderGallery(word = '') {
     const elGallery = document.querySelector('.gallery-container')
     elGallery.innerHTML = imgsHTMLs.join('')
 
-    document.querySelector('.msg').classList.add('hide')
+    document.querySelector('.msg-no-saved').classList.add('hide')
 }
 
 function onSearch(word) {
@@ -67,7 +65,7 @@ function renderSavedMemes() {
     const elGallery = document.querySelector('.gallery-container')
     elGallery.innerHTML = ''
     if (!memes) {
-        const elMsg = document.querySelector('.msg')
+        const elMsg = document.querySelector('.msg-no-saved')
         elMsg.innerHTML = '<h2>No saved memes yet 😫</h2>'
         elMsg.classList.remove('hide')
         return
@@ -91,3 +89,24 @@ function renderSavedMeme(memeId, memeImgData, i, elGallery) {
         ctx.drawImage(img, 0, 0, elCanvas.width, elCanvas.height)
     }
 }
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, addImg)
+}
+
+
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+
+    reader.onload = ev => {
+        let img = new Image()
+        img.src = ev.target.result
+        // img.onload = () => onImageReady(img)
+        img.onload = () => {
+            onImageReady(img.src)
+            renderGallery()
+        }
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+

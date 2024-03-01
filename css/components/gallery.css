@@ -54,7 +54,7 @@ button.clear {
     cursor: pointer;
 }
 
-.msg{
+.msg-no-saved{
     grid-column: span 2;
 }
 

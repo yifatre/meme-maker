@@ -1,8 +1,10 @@
 :root {
     --off-white: #e6e6e6;
+    --off-white-clear: #f9f9f9ce;
     --off-black: #222222;
     --coral: #fa8282;
-    --hot-pink: #ec4c72;
+    --hot-pink: #ec4c7146;
+    --hot-pink-clear: #ec4c7100;
     --pink: #e54fa0;
     --purple: #9f33b1;
     --orange: #ffb870;
