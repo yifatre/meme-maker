@@ -107,9 +107,10 @@ function addLine(txt = '') {
     gMeme.selectedLineIdx = getNumOfLines() - 1
 }
 
-function removeLine(lineIdx) {
+function removeLine() {
     if (!getNumOfLines()) return
-    return gMeme.lines.splice(lineIdx, 1)
+    if (gMeme.selectedLineIdx === -1) return
+    return gMeme.lines.splice(gMeme.selectedLineIdx, 1)
 }
 
 function saveMeme() {
