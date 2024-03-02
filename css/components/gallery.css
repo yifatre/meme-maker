@@ -21,7 +21,7 @@ button.clear {
     top: 0.125rem;
 }
 
-.keywords-map{
+.keywords-map {
     grid-column: 2/3;
 
     align-items: baseline;
@@ -39,27 +39,27 @@ button.clear {
     transform: translateY(-5%);
 }
 
-.gallery button.surprise {  
+.gallery button.surprise {
     align-self: center;
 }
 
-.upload-img-container{
+.upload-img-container {
     align-self: center;
 }
 
-.upload-img-container label{
+.upload-img-container label {
     cursor: pointer;
 }
 
-.msg-no-saved{
+.msg-no-saved {
     grid-column: span 2;
 }
 
 .gallery-container {
     grid-column: span 2;
 
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1vw;
     grid-auto-flow: dense;
     justify-content: center;
@@ -69,21 +69,24 @@ button.clear {
     margin: 1rem auto;
 }
 
-
 .img-holder {
+    align-self: center;
     width: 100%;
-    height: 100%;
+    height: fit-content;
+}
+
+.img-holder>* {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 500ms;
+}
+
+.img-holder>*:hover {
+    transform: scale(1.03);
 }
 
 .gallery-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    cursor: pointer;
-    transition: transform 500ms;
-    border-radius: 5px;
-}
-
-.gallery-container *:hover {
-    transform: scale(1.03);
 }

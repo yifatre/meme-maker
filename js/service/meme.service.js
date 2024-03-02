@@ -160,7 +160,7 @@ function addImg(imgUrl, isUserImg = false) {
 
 
 function createMeme(imgId, txt = '', id, lines) {
-    if (!lines) lines = [_createLine(txt)]
+    if (!lines) lines = []
     gMeme = {
         id: id || makeId(),
         selectedImgId: imgId,
