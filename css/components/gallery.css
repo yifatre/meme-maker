@@ -56,13 +56,10 @@ button.clear {
 }
 
 .gallery-container {
-    grid-column: span 2;
-
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: repeat(auto-fit, min-content);
     gap: 1vw;
     grid-auto-flow: dense;
-    justify-content: center;
     align-items: center;
 
     width: 95vw;
@@ -72,7 +69,7 @@ button.clear {
 .img-holder {
     align-self: center;
     width: 100%;
-    height: fit-content;
+    height: 100%;
 }
 
 .img-holder>* {
