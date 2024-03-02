@@ -292,7 +292,8 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
 
 async function onShare() {
-    const img = imageToData()
+    const img = new Image()
+    img.src = imageToData()
 
     // feature detecting navigator.canShare() also implies
     // the same for the navigator.share()
@@ -305,7 +306,7 @@ async function onShare() {
         return;
     }
 
-    if (navigator.canShare({ img })) {
+    if (navigator.canShare(img)) {
         try {
             await navigator.share({
                 img,
