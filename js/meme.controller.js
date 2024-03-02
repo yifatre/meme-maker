@@ -292,11 +292,23 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
 
 async function onShare() {
-    const img = new Image()
-    img.src = imageToData()
+    const dataUrl = imageToData()
 
-    // feature detecting navigator.canShare() also implies
-    // the same for the navigator.share()
+    const blob = await (await fetch(dataUrl)).blob();
+    const filesArray = [
+        new File(
+            [blob],
+            'meme.jpg',
+            {
+                type: blob.type,
+                lastModified: new Date().getTime()
+            }
+        )
+    ];
+    const shareData = {
+        files: filesArray,
+    };
+
     const elModal = document.querySelector('.msgs')
     const elMsg = elModal.querySelector('h4')
     if (!navigator.canShare) {
@@ -306,13 +318,9 @@ async function onShare() {
         return;
     }
 
-    if (navigator.canShare(img)) {
+    if (navigator.canShare(shareData)) {
         try {
-            await navigator.share({
-                img,
-                title: "Meme",
-                text: "Look at my meme!",
-            });
+            await navigator.share(shareData);
             elMsg.innerText = 'Shared!'
             elModal.showModal()
             setTimeout(() => elModal.close(), 1500)
@@ -320,7 +328,7 @@ async function onShare() {
         } catch (error) {
             elMsg.innerText = `Error: ${error.message}`
             elModal.showModal()
-            setTimeout(() => elModal.close(), 1500)
+            setTimeout(() => elModal.close(), 15000)
         }
     } else {
         elMsg.innerText = 'Your system doesn\'t support sharing these files'
