@@ -51,7 +51,6 @@ function renderEditor() {
     elFont.style.fontFamily = elFont.value
 }
 
-
 function drawText(line, lineIdx, ctx = gCtx, widthRatio = 1) {
     ctx.lineWidth = 1
     ctx.strokeStyle = line.color
@@ -72,7 +71,6 @@ function onTextInput(txt) {
     setLineText(txt)
     renderMeme()
 }
-
 
 function onChangeOutline(color) {
     setLineColor(color)
@@ -127,7 +125,6 @@ function drawLineFrame() {
     gCtx.closePath()
 }
 
-
 function onMoveY(dy) {
     setLineY(dy)
     renderMeme()
@@ -138,10 +135,8 @@ function onMoveX(dx) {
     renderMeme()
 }
 
-
 function onDeleteLine() {
-    if (removeLine())
-        switchLineToEdit()
+    if (removeLine()) switchLineToEdit()
 }
 
 function switchLineToEdit() {
@@ -161,7 +156,6 @@ function onDownloadMeme(elLink) {
     const imgContent = imageToData()
     elLink.href = imgContent
 }
-
 
 function imageToData() {
     setSelectedLineIdx(-1)
@@ -207,7 +201,6 @@ function onMouseUp() {
     document.body.style.cursor = 'grab'
 }
 
-
 function addEventListeners() {
     // * Mouse Listeners
     gElCanvas.addEventListener('mousedown', onMouseDown)
@@ -240,12 +233,7 @@ function getEvPos(ev) {
     return pos
 }
 
-
-
-
-
 //**************SHARES************/
-
 function onUploadImgToFacebook() {
     // Gets the image from the canvas
     const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
@@ -289,12 +277,6 @@ function doUploadImg(imgDataUrl, onSuccess) {
     XHR.open('POST', '//ca-upload.com/here/upload.php')
     XHR.send(formData)
 }
-
-
-
-// const input = document.getElementById("files");
-// const output = document.getElementById("output");
-
 
 async function onShare() {
     const dataUrl = imageToData()
@@ -341,4 +323,3 @@ async function onShare() {
         setTimeout(() => elModal.close(), 1500)
     }
 }
-

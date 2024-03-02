@@ -2,20 +2,3 @@
     font-family: Impact;
     src: url(../../fonts/impact.ttf);
 }
-
-@font-face {
-    font-family: fa;
-    src: url(../../fonts/fa-regular-400.ttf);
-}
-
-.fa::before {
-    font-family: fa;
-}
-
-/* .fa.outline::before {
-    content: "\f031";
-}
-
-.fa.fill::before {
-    content: "\f576";
-} */

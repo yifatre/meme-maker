@@ -1,11 +1,10 @@
 * {
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Impact, Verdana, sans-serif;
 }
-
 
 body {
     text-align: center;
-    font-family: 'Segoe UI', Tahoma, Impact, Verdana, sans-serif;
     color: #222222;
     background-color: var(--off-white);
     margin: 0;
@@ -13,7 +12,6 @@ body {
 
 button {
     cursor: pointer;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h1,
@@ -27,7 +25,6 @@ h2 {
 
 main {
     margin: 0 auto;
-
 }
 
 canvas {
@@ -39,11 +36,9 @@ img {
     width: 100%;
 }
 
-
 .clear-btn{
     text-decoration: none;
     font-size: 1rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--hot-pink-clear);
     border: 1px solid var(--off-black);
     padding: 0.5rem;
@@ -56,4 +51,3 @@ img {
 .clear-btn:hover{
     background-color: var(--hot-pink);
 }
-

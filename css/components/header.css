@@ -1,23 +1,22 @@
 header {
-   grid-area: header;
+    grid-area: header;
+
+    background-color: var(--coral);
 
     margin: 0;
-    background-color: var(--coral);
-    
     height: 6rem;
     padding-inline-start: 1rem;
 }
 
-.main-nav ul{
+.main-nav ul {
     height: 6rem;
 }
 
-.main-nav li{
-    
+.main-nav li {
     height: 100%;
 }
 
-.main-nav button{
+.main-nav button {
     text-align: center;
     text-decoration: none;
     color: inherit;
@@ -30,6 +29,6 @@ header {
     cursor: pointer;
 }
 
-.main-nav button:hover{
+.main-nav button:hover {
     font-weight: bold;
 }

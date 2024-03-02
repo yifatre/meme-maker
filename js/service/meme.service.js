@@ -8,18 +8,6 @@ _createImgs()
 _createKeywords()
 
 var gMeme = {}
-// {
-//     id: makeId(),
-//     selectedImgId: 4,
-//     selectedLineIdx: 0,
-//     lines: [
-//         { txt: 'I sometimes eat Falafel', size: 20, color: '#ff0000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Segoe UI', alignDir: 'left' },
-//         { txt: 'Me too', size: 40, color: '#1100ff', fill: '#ffffff', x: 50, y: 50, width: 0, font: 'Impact', alignDir: 'left' }
-//     ]
-// }
-
-
-
 
 var gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2, 'dog': 8, 'putin': 5 }
 
@@ -125,7 +113,6 @@ function removeLine(lineIdx) {
 }
 
 function saveMeme() {
-    // const img = gImgs.find(img => img.id === gMeme.selectedImgId)
     const memeToStore = {
         id: gMeme.id,
         selectedImgId: gMeme.selectedImgId,
@@ -158,7 +145,6 @@ function addImg(imgUrl) {
     gMeme.userImgUrl = imgUrl
 }
 
-
 function createMeme(imgId = -1, txt = '', id, lines) {
     if (!lines) lines = []
     gMeme = {
@@ -175,31 +161,31 @@ function _createLine(txt = '') {
 
 function _createImgs() {
     gImgs = [
-        { id: 1, url: `img/${1}.jpg`, keywords: ['funny', 'trump'] },
-        { id: 2, url: `img/${2}.jpg`, keywords: ['funny', 'look', 'cute'] },
-        { id: 3, url: `img/${3}.jpg`, keywords: ['funny', 'dog', 'cute', 'baby'] },
-        { id: 4, url: `img/${4}.jpg`, keywords: ['cute', 'cat'] },
-        { id: 5, url: `img/${5}.jpg`, keywords: ['funny', 'kid'] },
-        { id: 6, url: `img/${6}.jpg`, keywords: ['funny', 'man'] },
-        { id: 7, url: `img/${7}.jpg`, keywords: ['funny', 'kid'] },
-        { id: 8, url: `img/${8}.jpg`, keywords: ['funny', 'man'] },
-        { id: 9, url: `img/${9}.jpg`, keywords: ['funny', 'kid'] },
-        { id: 10, url: `img/${10}.jpg`, keywords: ['funny', 'obama'] },
-        { id: 11, url: `img/${11}.jpg`, keywords: ['funny', 'kiss'] },
-        { id: 12, url: `img/${12}.jpg`, keywords: ['funny', 'man'] },
-        { id: 13, url: `img/${13}.jpg`, keywords: ['funny', 'everywhere'] },
-        { id: 14, url: `img/${14}.jpg`, keywords: ['funny'] },
-        { id: 15, url: `img/${15}.jpg`, keywords: ['funny', 'kids'] },
-        { id: 16, url: `img/${16}.jpg`, keywords: ['funny', 'dog'] },
-        { id: 17, url: `img/${17}.jpg`, keywords: ['toast'] },
-        { id: 18, url: `img/${18}.jpg`, keywords: ['sunglasses', 'man'] },
-        { id: 19, url: `img/${19}.jpg`, keywords: ['funny', 'man'] },
-        { id: 20, url: `img/${20}.jpg`, keywords: ['funny', 'trump'] },
-        { id: 21, url: `img/${21}.jpg`, keywords: ['funny', 'dog', 'cute'] },
-        { id: 22, url: `img/${22}.jpg`, keywords: ['funny', 'simply'] },
-        { id: 23, url: `img/${23}.jpg`, keywords: ['funny', 'oprah'] },
-        { id: 24, url: `img/${24}.jpg`, keywords: ['funny'] },
-        { id: 25, url: `img/${25}.jpg`, keywords: ['funny', 'putin'] }
+        { id: 1, url: `img/gallery/${1}.jpg`, keywords: ['funny', 'trump'] },
+        { id: 2, url: `img/gallery/${2}.jpg`, keywords: ['funny', 'look', 'cute'] },
+        { id: 3, url: `img/gallery/${3}.jpg`, keywords: ['funny', 'dog', 'cute', 'baby'] },
+        { id: 4, url: `img/gallery/${4}.jpg`, keywords: ['cute', 'cat'] },
+        { id: 5, url: `img/gallery/${5}.jpg`, keywords: ['funny', 'kid'] },
+        { id: 6, url: `img/gallery/${6}.jpg`, keywords: ['funny', 'man'] },
+        { id: 7, url: `img/gallery/${7}.jpg`, keywords: ['funny', 'kid'] },
+        { id: 8, url: `img/gallery/${8}.jpg`, keywords: ['funny', 'man'] },
+        { id: 9, url: `img/gallery/${9}.jpg`, keywords: ['funny', 'kid'] },
+        { id: 10, url: `img/gallery/${10}.jpg`, keywords: ['funny', 'obama'] },
+        { id: 11, url: `img/gallery/${11}.jpg`, keywords: ['funny', 'kiss'] },
+        { id: 12, url: `img/gallery/${12}.jpg`, keywords: ['funny', 'man'] },
+        { id: 13, url: `img/gallery/${13}.jpg`, keywords: ['funny', 'everywhere'] },
+        { id: 14, url: `img/gallery/${14}.jpg`, keywords: ['funny'] },
+        { id: 15, url: `img/gallery/${15}.jpg`, keywords: ['funny', 'kids'] },
+        { id: 16, url: `img/gallery/${16}.jpg`, keywords: ['funny', 'dog'] },
+        { id: 17, url: `img/gallery/${17}.jpg`, keywords: ['toast'] },
+        { id: 18, url: `img/gallery/${18}.jpg`, keywords: ['sunglasses', 'man'] },
+        { id: 19, url: `img/gallery/${19}.jpg`, keywords: ['funny', 'man'] },
+        { id: 20, url: `img/gallery/${20}.jpg`, keywords: ['funny', 'trump'] },
+        { id: 21, url: `img/gallery/${21}.jpg`, keywords: ['funny', 'dog', 'cute'] },
+        { id: 22, url: `img/gallery/${22}.jpg`, keywords: ['funny', 'simply'] },
+        { id: 23, url: `img/gallery/${23}.jpg`, keywords: ['funny', 'oprah'] },
+        { id: 24, url: `img/gallery/${24}.jpg`, keywords: ['funny'] },
+        { id: 25, url: `img/gallery/${25}.jpg`, keywords: ['funny', 'putin'] }
     ]
 }
 

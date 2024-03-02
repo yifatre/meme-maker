@@ -76,7 +76,6 @@ function renderSavedMemes() {
     memes.forEach((meme, i) => {
         renderSavedMeme(meme, i, elGallery)
     });
-
 }
 
 function renderSavedMeme(meme, i, elGallery) {
@@ -88,18 +87,16 @@ function renderSavedMeme(meme, i, elGallery) {
     img.onload = () => {
         const elCanvas = document.querySelector(`.saved_${i}`)
         const ctx = elCanvas.getContext('2d')
-        elCanvas.height = (img.naturalHeight / img.naturalWidth) * elCanvas.width
-        ctx.drawImage(img, 0, 0, elCanvas.width, elCanvas.height)
+        // elCanvas.height = (img.naturalHeight / img.naturalWidth) * elCanvas.width
+        ctx.drawImage(img, 0, 0, elCanvas.width, (img.naturalHeight / img.naturalWidth) * elCanvas.width)
         meme.lines.forEach((line, i) => drawText(line, i, ctx, elCanvas.width / 400))
     }
 }
-
 
 function onImgInput(ev) {
     createMeme()
     loadImageFromInput(ev, addImg)
 }
-
 
 function loadImageFromInput(ev, onImageReady) {
     const reader = new FileReader()
@@ -114,4 +111,3 @@ function loadImageFromInput(ev, onImageReady) {
     }
     reader.readAsDataURL(ev.target.files[0])
 }
-
