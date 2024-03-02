@@ -39,3 +39,21 @@ img {
     width: 100%;
 }
 
+
+.clear-btn{
+    text-decoration: none;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--hot-pink-clear);
+    border: 1px solid var(--off-black);
+    padding: 0.5rem;
+    border-radius: 6px;
+    color: var(--off-black);
+
+    transition: background-color 600ms;
+}
+
+.clear-btn:hover{
+    background-color: var(--hot-pink);
+}
+

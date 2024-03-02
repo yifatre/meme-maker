@@ -1,6 +1,5 @@
 .search {
     position: relative;
-    justify-self: end;
     align-self: center;
 }
 
@@ -24,7 +23,6 @@ button.clear {
 
 .keywords-map{
     grid-column: 2/3;
-    justify-self: start;
 
     align-items: baseline;
     height: 3rem;
@@ -33,24 +31,23 @@ button.clear {
 .keywords-map span {
     margin-inline: 0.3rem;
     cursor: pointer;
+
+    transition: transform 400ms;
 }
 
-.gallery button.surprise {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    
-    justify-self: end;
+.keywords-map span:hover {
+    transform: translateY(-5%);
+}
+
+.gallery button.surprise {  
     align-self: center;
 }
 
 .upload-img-container{
-    justify-self: start;
     align-self: center;
 }
 
 .upload-img-container label{
-    font-size: 1.2rem;
     cursor: pointer;
 }
 
