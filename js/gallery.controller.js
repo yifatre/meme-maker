@@ -80,9 +80,7 @@ function renderSavedMemes() {
 }
 
 function renderSavedMeme(meme, i, elGallery) {
-    const canvasStr = `<div class="img-holder div_${i}">
-                        <canvas width="200" height="200" class="saved_${i}" onclick="editMeme('${meme.id}')">
-                        </div>`
+    const canvasStr = `<div class="img-holder div_${i}"><canvas width="200" height="200" class="saved_${i}" onclick="editMeme('${meme.id}')"></div>`
     elGallery.innerHTML += canvasStr
     const img = new Image()
     if (meme.imgData) img.src = meme.imgData
