@@ -13,8 +13,8 @@ function renderMeme() {
     img.onload = () => {
         renderImg(img)
         if (!meme.lines.length) return
-        meme.lines.forEach((line, lineIdx) => { 
-            drawText(line, lineIdx) 
+        meme.lines.forEach((line, lineIdx) => {
+            drawText(line, lineIdx)
             setLineWidth(gCtx.measureText(line.txt).width, lineIdx)
         })
         drawLineFrame()
@@ -57,13 +57,13 @@ function drawText(line, lineIdx, ctx = gCtx, widthRatio = 1) {
 
     ctx.fillStyle = line.fill
 
-    ctx.font = `${line.size*widthRatio}px ${line.font}`
+    ctx.font = `${line.size * widthRatio}px ${line.font}`
     ctx.textBaseline = 'top'
     ctx.textAlign = line.alignDir
 
-    ctx.fillText(line.txt, line.x*widthRatio, line.y*widthRatio)
-    ctx.strokeText(line.txt, line.x*widthRatio, line.y*widthRatio)
-    
+    ctx.fillText(line.txt, line.x * widthRatio, line.y * widthRatio)
+    ctx.strokeText(line.txt, line.x * widthRatio, line.y * widthRatio)
+
 }
 
 function onTextInput(txt) {
@@ -149,6 +149,7 @@ function switchLineToEdit() {
 function onSaveMeme() {
     saveMeme(imageToData())
     const elModal = document.querySelector('.msgs')
+    elModal.querySelector('h4').innerText = 'Meme saved for later'
     elModal.showModal()
     setTimeout(() => elModal.close(), 1500)
 }
@@ -236,6 +237,10 @@ function getEvPos(ev) {
 
 
 
+
+
+//**************SHARES************/
+
 function onUploadImgToFacebook() {
     // Gets the image from the canvas
     const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
@@ -280,4 +285,46 @@ function doUploadImg(imgDataUrl, onSuccess) {
     XHR.send(formData)
 }
 
+
+
+// const input = document.getElementById("files");
+// const output = document.getElementById("output");
+
+
+async function onShare() {
+    const img = imageToData()
+
+    // feature detecting navigator.canShare() also implies
+    // the same for the navigator.share()
+    const elModal = document.querySelector('.msgs')
+    const elMsg = elModal.querySelector('h4')
+    if (!navigator.canShare) {
+        elMsg.innerText = 'Your browser doesn\'t support the Web Share API'
+        elModal.showModal()
+        setTimeout(() => elModal.close(), 1500)
+        return;
+    }
+
+    if (navigator.canShare({ img })) {
+        try {
+            await navigator.share({
+                img,
+                title: "Meme",
+                text: "Look at my meme!",
+            });
+            elMsg.innerText = 'Shared!'
+            elModal.showModal()
+            setTimeout(() => elModal.close(), 1500)
+
+        } catch (error) {
+            elMsg.innerText = `Error: ${error.message}`
+            elModal.showModal()
+            setTimeout(() => elModal.close(), 1500)
+        }
+    } else {
+        elMsg.innerText = 'Your system doesn\'t support sharing these files'
+        elModal.showModal()
+        setTimeout(() => elModal.close(), 1500)
+    }
+}
 
