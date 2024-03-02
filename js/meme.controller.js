@@ -67,6 +67,7 @@ function drawText(line, lineIdx, ctx = gCtx, widthRatio = 1) {
 }
 
 function onTextInput(txt) {
+    if (!getLine()) addLine()
     setLineText(txt)
     renderMeme()
 }
@@ -114,6 +115,7 @@ function onChangeFont(elFont) {
 
 function drawLineFrame() {
     let line = getLine()
+    if (!line || !line.txt) return
     gCtx.beginPath()
     gCtx.lineWidth = '2'
     gCtx.strokeStyle = '#ffffff'
@@ -156,11 +158,13 @@ function onSaveMeme() {
 
 function onDownloadMeme(elLink) {
     const imgContent = imageToData()
-    console.log('imgContent:', imgContent);
     elLink.href = imgContent
 }
 
+
 function imageToData() {
+    setSelectedLineIdx(-1)
+    renderMeme()
     return gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
 }
 
@@ -172,18 +176,17 @@ function onMouseDown(ev) {
         return pos.x >= x && pos.x <= x + width &&
             pos.y >= y && pos.y <= y + size
     })
-    if (clickedLine === -1) return
-    lines[clickedLine].isDrag = true
-    console.log('clickedLine:', clickedLine);
-    if (clickedLine === -1) return
     setSelectedLineIdx(clickedLine)
     renderMeme()
+    if (clickedLine === -1) return
+    lines[clickedLine].isDrag = true
+    // console.log('clickedLine:', clickedLine);
     document.body.style.cursor = 'grabbing'
 }
 
 function onDrag(ev) {
     const line = getLine()
-    if (!line.isDrag) return
+    if (!line || !line.isDrag) return
 
     const pos = getEvPos(ev)
     // Calc the delta, the diff we moved
@@ -198,6 +201,7 @@ function onDrag(ev) {
 
 function onMouseUp() {
     const line = getLine()
+    if (!line) return
     line.isDrag = false
     document.body.style.cursor = 'grab'
 }
