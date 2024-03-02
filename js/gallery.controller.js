@@ -56,8 +56,8 @@ function goToEditMeme() {
 
 function editMeme(memeId) {
     const meme = getSavedMemes().find(meme => meme.id === memeId)
-    if (meme.imgData) createMeme(addImg(meme.imgData), '', memeId, meme.lines)
-    else createMeme(meme.selectedImgId, '', memeId, meme.lines)
+    createMeme(meme.selectedImgId, '', memeId, meme.lines)
+    if (meme.userImgUrl) addImg(meme.userImgUrl)
     goToEditMeme()
 }
 
@@ -80,10 +80,10 @@ function renderSavedMemes() {
 }
 
 function renderSavedMeme(meme, i, elGallery) {
-    const canvasStr = `<div class="img-holder div_${i}"><canvas width="200" height="200" class="saved_${i}" onclick="editMeme('${meme.id}')"><div>`
+    const canvasStr = `<div class="img-holder div_${i}"><canvas width="200" height="200" class="saved_${i}" onclick="editMeme('${meme.id}')"></div>`
     elGallery.innerHTML += canvasStr
     const img = new Image()
-    if (meme.imgData) img.src = meme.imgData
+    if (meme.userImgUrl) img.src = meme.userImgUrl
     else img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
         const elCanvas = document.querySelector(`.saved_${i}`)
@@ -96,6 +96,7 @@ function renderSavedMeme(meme, i, elGallery) {
 
 
 function onImgInput(ev) {
+    createMeme()
     loadImageFromInput(ev, addImg)
 }
 
@@ -107,8 +108,8 @@ function loadImageFromInput(ev, onImageReady) {
         let img = new Image()
         img.src = ev.target.result
         img.onload = () => {
-            onImageReady(img.src, true)
-            renderGallery()
+            onImageReady(img.src)
+            goToEditMeme()
         }
     }
     reader.readAsDataURL(ev.target.files[0])

@@ -9,7 +9,8 @@ const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 function renderMeme() {
     const meme = getMeme()
     const img = new Image()
-    img.src = getImgById(meme.selectedImgId).url
+    if (meme.userImgUrl) img.src = meme.userImgUrl
+    else img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
         renderImg(img)
         if (!meme.lines.length) return
