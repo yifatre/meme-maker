@@ -155,10 +155,7 @@ function onSaveMeme() {
 }
 
 function onDownloadMeme(ev) {
-    console.log(Date.now());
     clearSelection()
-    console.log(Date.now());
-
 
     setTimeout(() => {
         const imgContent = imageToData()

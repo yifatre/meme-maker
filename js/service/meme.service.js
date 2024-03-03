@@ -40,7 +40,7 @@ function getKeywordsMap() {
 }
 
 /*********************************/
-function setSelectedLineIdx(lineIdx,) {
+function setSelectedLineIdx(lineIdx) {
     gMeme.selectedLineIdx = lineIdx
 }
 
@@ -50,15 +50,11 @@ function setSelectedImgId(imgId) {
 
 function switchSelectedLine() {
     if (!getNumOfLines()) {
-        setSelectedLineIdx(0,)
+        setSelectedLineIdx(0)
     } else {
         gMeme.selectedLineIdx--
         if (gMeme.selectedLineIdx < 0) setSelectedLineIdx(getNumOfLines() - 1,)
     }
-}
-
-function setMemeImg(imgId) {
-    gMeme.selectedImgId = imgId
 }
 
 function setLineText(txt) {
@@ -67,34 +63,42 @@ function setLineText(txt) {
 }
 
 function setLineAlignDir(alignDir) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].alignDir = alignDir
 }
 
 function setLineColor(color) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].color = color
 }
 
 function setLineFill(color) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].fill = color
 }
 
 function setLineSize(dSize) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].size += dSize
 }
 
 function setLineWidth(width, lineIdx) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[lineIdx].width = width
 }
 
 function setLineFont(fontName,) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].font = fontName
 }
 
 function setLineY(dy) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].y += dy
 }
 
 function setLineX(dx) {
+    if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].x += dx
 }
 
