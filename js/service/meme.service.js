@@ -107,11 +107,6 @@ function moveLineX(dx) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
 }
 
-// function setLineX(newX) {
-//     if (!getNumOfLines() || getSelectedLine() === -1) return
-//     gMeme.lines[gMeme.selectedLineIdx].x = newX
-// }
-
 function updateKeywordsMap(word) {
     if (!KEYWORDS.includes(word.toLowerCase())) return
     if (!gKeywordSearchCountMap[word]) gKeywordSearchCountMap[word] = 0
@@ -174,7 +169,7 @@ function createMeme(imgId = -1, txt = '', id, lines) {
 }
 
 function _createLine(txt = '', x = 0, y = 0) {
-    return { txt, size: 20, color: '#000000', fill: '#ffffff', x, y, width: 0, font: 'Impact', alignDir: 'center', isDrag: false }
+    return { txt, size: 20, color: '#000000', fill: '#ffffff', x, y, width: 0, font: 'Impact', alignDir: 'center' }
 }
 
 function _createImgs() {

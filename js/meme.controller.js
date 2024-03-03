@@ -4,6 +4,8 @@ let gElCanvas
 let gCtx
 
 let gPrevPos = null
+let gIsDrag = false
+let gIsResize = false
 
 const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
@@ -121,9 +123,6 @@ function drawLineFrame() {
     gCtx.lineWidth = '1'
     gCtx.strokeStyle = '#ffffff'
     gCtx.setLineDash([10, 5]);
-    // if (line.alignDir === 'left') gCtx.rect(line.x - 10, line.y - 5, line.width + 20, line.size + 10)
-    // else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width / 2, line.y - 5, line.width + 20, line.size + 10)
-    // else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width, line.y - 5, line.width + 20, line.size + 10)
     gCtx.rect(line.x - 10 - line.width / 2, line.y - 5 - line.size / 2, line.width + 20, line.size + 10)
     gCtx.stroke()
     gCtx.closePath()
@@ -178,6 +177,27 @@ function imageToData() {
 
 function onMouseDown(ev) {
     const pos = getEvPos(ev)
+    const line = getLine()
+    if (line) {
+        const { x1, x2, y1, y2 } = {
+            x1: Math.floor(line.x - 10 - line.width / 2),
+            x2: Math.ceil(line.x + 10 + line.width / 2),
+            y1: Math.floor(line.y - 5 - line.size / 2),
+            y2: Math.ceil(line.y + 5 + line.size / 2)
+        }
+        // console.log('pos:', pos);
+        // console.log('x1, x2, y1, y2:', x1, x2, y1, y2);
+
+        if (((pos.y >= y1 - 2 && pos.y <= y1 + 2)
+            || (pos.y >= y2 - 2 && pos.y <= y2 + 2)) &&
+            (pos.x >= x1 && pos.x <= x2)) {
+            // gIsResize = true
+            gElCanvas.style.cursor = 'ns-resize'
+            gIsResize = true
+            gPrevPos = pos
+            return
+        }
+    }
     const lines = getMeme().lines
     const clickedLine = lines.findIndex(line => {
         const { x, y, size, width } = line
@@ -187,27 +207,49 @@ function onMouseDown(ev) {
     setSelectedLineIdx(clickedLine)
     renderMeme()
     if (clickedLine === -1) return
-    lines[clickedLine].isDrag = true
-    // console.log('clickedLine:', clickedLine);
-    document.body.style.cursor = 'grabbing'
+    gIsDrag = true
+    gElCanvas.style.cursor = 'grabbing'
     gPrevPos = pos
 }
 
-function onDrag(ev) {
-    const line = getLine()
-    if (!line || !line.isDrag) return
-
+function onMouseMove(ev) {
     const pos = getEvPos(ev)
-    // Calc the delta, the diff we moved
+    // console.log('pos:', pos);
+    const line = getLine()
+    if (!line) return
+
+    if (!gIsResize && !gIsDrag) {
+        const { x1, x2, y1, y2 } = {
+            x1: Math.floor(line.x - 10 - line.width / 2),
+            x2: Math.ceil(line.x + 10 + line.width / 2),
+            y1: Math.floor(line.y - 5 - line.size / 2),
+            y2: Math.ceil(line.y + 5 + line.size / 2)
+        }
+
+        if (((pos.y >= y1 - 2 && pos.y <= y1 + 2)
+            || (pos.y >= y2 - 2 && pos.y <= y2 + 2)) &&
+            (pos.x >= x1 && pos.x <= x2)) {
+            gElCanvas.style.cursor = 'ns-resize'
+        }
+        else gElCanvas.style.cursor = 'grab'
+        return
+    }
     const dx = pos.x - gPrevPos.x
-    const dy = pos.y - gPrevPos.y
+    let dy = pos.y - gPrevPos.y
 
-    moveLineX(dx)
-    moveLineY(dy)
+    if (gIsResize) {
+        if (pos.y < line.y) dy = -dy
+        setLineSize(dy)
+    }
 
+    // const pos = getEvPos(ev)
+    // Calc the delta, the diff we moved
+    if (gIsDrag) {
+        moveLineX(dx)
+        moveLineY(dy)
+    }
     renderMeme()
     gPrevPos = pos
-
     window.addEventListener('mouseup', onMouseUp)
 }
 
@@ -215,8 +257,10 @@ function onMouseUp() {
     if (getSelectedLine() === -1) return
     const line = getLine()
     if (!line) return
-    line.isDrag = false
-    document.body.style.cursor = 'grab'
+
+    gIsDrag = false
+    gIsResize = false
+    gElCanvas.style.cursor = 'grab'
     gPrevPos = null
 
     window.removeEventListener('mouseup', onMouseUp)
@@ -225,12 +269,12 @@ function onMouseUp() {
 function addEventListeners() {
     // * Mouse Listeners
     gElCanvas.addEventListener('mousedown', onMouseDown)
-    gElCanvas.addEventListener('mousemove', onDrag)
+    gElCanvas.addEventListener('mousemove', onMouseMove)
     gElCanvas.addEventListener('mouseup', onMouseUp)
 
     // * Touch Listeners
     gElCanvas.addEventListener('touchstart', onMouseDown)
-    gElCanvas.addEventListener('touchmove', onDrag)
+    gElCanvas.addEventListener('touchmove', onMouseMove)
     gElCanvas.addEventListener('touchend', onMouseUp)
 
 }

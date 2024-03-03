@@ -12,6 +12,10 @@
     justify-self: end;
 }
 
+.main-canvas{
+    cursor: grab;
+}
+
 .editor-controls {
     grid-area: controls;
     padding: 1rem;
