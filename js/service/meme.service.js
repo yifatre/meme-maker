@@ -16,6 +16,9 @@ function getMeme() {
     return gMeme
 }
 
+function getSelectedLine() {
+    return gMeme.selectedLineIdx
+}
 function getLine() {
     return gMeme.lines[gMeme.selectedLineIdx]
 }

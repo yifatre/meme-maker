@@ -154,14 +154,26 @@ function onSaveMeme() {
     setTimeout(() => elModal.close(), 1500)
 }
 
-function onDownloadMeme(elLink) {
-    const imgContent = imageToData()
-    elLink.href = imgContent
+function onDownloadMeme(ev) {
+    console.log(Date.now());
+    clearSelection()
+    console.log(Date.now());
+
+
+    setTimeout(() => {
+        const imgContent = imageToData()
+        const elLink = document.querySelector('.download-link')
+        elLink.href = imgContent
+        elLink.click()
+    }, 10)
+}
+
+function clearSelection() {
+    setSelectedLineIdx(-1)
+    renderMeme()
 }
 
 function imageToData() {
-    setSelectedLineIdx(-1)
-    renderMeme()
     return gElCanvas.toDataURL('image/jpeg') // image/jpeg the default format
 }
 
@@ -199,6 +211,7 @@ function onDrag(ev) {
 }
 
 function onMouseUp() {
+    if (getSelectedLine() === -1) return
     const line = getLine()
     if (!line) return
     line.isDrag = false
@@ -243,7 +256,7 @@ function getEvPos(ev) {
 //**************SHARES************/
 function onUploadImgToFacebook() {
     // Gets the image from the canvas
-    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+    clearSelection()
 
     function onSuccess(uploadedImgUrl) {
         // Handle some special characters
@@ -252,7 +265,10 @@ function onUploadImgToFacebook() {
     }
 
     // Send the image to the server
-    doUploadImg(imgDataUrl, onSuccess)
+    setTimeout(() => {
+        const imgDataUrl = imageToData()
+        doUploadImg(imgDataUrl, onSuccess)
+    }, 500)
 }
 
 // Upload the image to a server, get back a URL 
@@ -286,8 +302,14 @@ function doUploadImg(imgDataUrl, onSuccess) {
 }
 
 async function onShare() {
-    const dataUrl = imageToData()
+    clearSelection()
+    setTimeout(() => {
+        const dataUrl = imageToData()
+        sharing(dataUrl)
+    }, 500)
+}
 
+async function sharing(dataUrl) {
     const blob = await (await fetch(dataUrl)).blob();
     const filesArray = [
         new File(
@@ -329,4 +351,5 @@ async function onShare() {
         elModal.showModal()
         setTimeout(() => elModal.close(), 1500)
     }
+
 }
