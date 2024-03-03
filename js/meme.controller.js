@@ -16,7 +16,9 @@ function renderMeme() {
     if (meme.userImgUrl) img.src = meme.userImgUrl
     else img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
-        gElCanvas.width = document.querySelector(`.canvas-container`).clientWidth
+        const elContainer = document.querySelector(`.canvas-container`)
+        gElCanvas.width = Math.min(elContainer.clientWidth, img.naturalWidth)
+        elContainer.style.width = gElCanvas.width + 'px'
         gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
         renderImg(img)
         if (!meme.lines.length) return
