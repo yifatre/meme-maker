@@ -48,6 +48,8 @@ function getSurpriseMeme() {
 }
 
 function goToEditMeme() {
+    window.removeEventListener('resize', () => renderSavedMemes())
+    window.addEventListener('resize', () => renderMeme())
     renderMeme()
     document.querySelector('.gallery').classList.add('hide')
     document.querySelector('.saves').classList.remove('hide')
@@ -79,15 +81,16 @@ function renderSavedMemes() {
 }
 
 function renderSavedMeme(meme, i, elGallery) {
-    const canvasStr = `<div class="img-holder div_${i}"><canvas width="200" height="200" class="saved_${i}" onclick="editMeme('${meme.id}')"></div>`
+    const canvasStr = `<div class="img-holder saved-holder-${i}"><canvas width="200" height="200" class="saved-${i}" onclick="editMeme('${meme.id}')"></div>`
     elGallery.innerHTML += canvasStr
     const img = new Image()
     if (meme.userImgUrl) img.src = meme.userImgUrl
     else img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
-        const elCanvas = document.querySelector(`.saved_${i}`)
+        const elCanvas = document.querySelector(`.saved-${i}`)
         const ctx = elCanvas.getContext('2d')
-        // elCanvas.height = (img.naturalHeight / img.naturalWidth) * elCanvas.width
+        elCanvas.width = document.querySelector(`.saved-holder-${i}`).clientWidth
+        elCanvas.height = (img.naturalHeight / img.naturalWidth) * elCanvas.width
         ctx.drawImage(img, 0, 0, elCanvas.width, (img.naturalHeight / img.naturalWidth) * elCanvas.width)
         meme.lines.forEach((line, i) => drawText(line, i, ctx, elCanvas.width / 400))
     }

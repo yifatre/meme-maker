@@ -16,6 +16,8 @@ function renderMeme() {
     if (meme.userImgUrl) img.src = meme.userImgUrl
     else img.src = getImgById(meme.selectedImgId).url
     img.onload = () => {
+        gElCanvas.width = document.querySelector(`.canvas-container`).clientWidth
+        gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
         renderImg(img)
         if (!meme.lines.length) return
         meme.lines.forEach((line, lineIdx) => {
@@ -214,7 +216,6 @@ function onMouseDown(ev) {
 
 function onMouseMove(ev) {
     const pos = getEvPos(ev)
-    // console.log('pos:', pos);
     const line = getLine()
     if (!line) return
 

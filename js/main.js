@@ -15,6 +15,8 @@ function onOpenMenu() {
 }
 
 function onOpenGallery() {
+    window.removeEventListener('resize', () => renderMeme())
+    window.removeEventListener('resize', () => renderSavedMemes())
     renderGallery()
     document.querySelector('.gallery').classList.remove('hide')
     document.querySelector('.saves').classList.add('hide')
@@ -24,6 +26,8 @@ function onOpenGallery() {
 }
 
 function onOpenSavedMemes() {
+    window.removeEventListener('resize', () => renderMeme())
+    window.addEventListener('resize', () => renderSavedMemes())
     renderSavedMemes()
     document.querySelector('.gallery').classList.remove('hide')
     document.querySelector('.saves').classList.add('hide')
@@ -32,7 +36,9 @@ function onOpenSavedMemes() {
     document.body.classList.remove('menu-open')
 }
 
-function onOpenAbout(){
+function onOpenAbout() {
+    window.removeEventListener('resize', () => renderMeme())
+    window.removeEventListener('resize', () => renderSavedMemes())
     document.querySelector('.gallery').classList.add('hide')
     document.querySelector('.saves').classList.add('hide')
     document.querySelector('.edit').classList.add('hide')

@@ -10,6 +10,8 @@
 .canvas-container {
     grid-area: canvas;
     justify-self: end;
+
+    /* width: calc(90vw - 20rem) */
 }
 
 .main-canvas{
