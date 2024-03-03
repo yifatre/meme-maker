@@ -60,8 +60,8 @@ function drawText(line, lineIdx, ctx = gCtx, widthRatio = 1) {
     ctx.fillStyle = line.fill
 
     ctx.font = `${line.size * widthRatio}px ${line.font}`
-    ctx.textBaseline = 'top'
-    ctx.textAlign = line.alignDir
+    ctx.textBaseline = 'middle'
+    ctx.textAlign = 'center' //line.alignDir
 
     ctx.fillText(line.txt, line.x * widthRatio, line.y * widthRatio)
     ctx.strokeText(line.txt, line.x * widthRatio, line.y * widthRatio)
@@ -69,8 +69,8 @@ function drawText(line, lineIdx, ctx = gCtx, widthRatio = 1) {
 }
 
 function onTextInput(txt) {
-    if (!getLine()) addLine()
-    setLineText(txt)
+    if (!getLine()) addLine(txt, gElCanvas.width / 2, gElCanvas.height / 2)
+    else setLineText(txt)
     renderMeme()
 }
 
@@ -90,7 +90,7 @@ function onChangeFontSize(dSize) {
 }
 
 function onAlignText(alignDir) {
-    setLineAlignDir(alignDir)
+    setLineAlignDir(alignDir, gElCanvas.width)
     renderMeme()
 }
 
@@ -101,7 +101,7 @@ function onAddLine() {
 }
 
 function onAddSticker(elBtn) {
-    addLine(elBtn.innerText)
+    addLine(elBtn.innerText, gElCanvas.width / 2, gElCanvas.height / 2)
     renderMeme()
 }
 
@@ -118,22 +118,24 @@ function drawLineFrame() {
     let line = getLine()
     if (!line || !line.txt) return
     gCtx.beginPath()
-    gCtx.lineWidth = '2'
+    gCtx.lineWidth = '1'
     gCtx.strokeStyle = '#ffffff'
-    if (line.alignDir === 'left') gCtx.rect(line.x - 10, line.y - 5, line.width + 20, line.size + 10)
-    else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width / 2, line.y - 5, line.width + 20, line.size + 10)
-    else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width, line.y - 5, line.width + 20, line.size + 10)
+    gCtx.setLineDash([10, 5]);
+    // if (line.alignDir === 'left') gCtx.rect(line.x - 10, line.y - 5, line.width + 20, line.size + 10)
+    // else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width / 2, line.y - 5, line.width + 20, line.size + 10)
+    // else if (line.alignDir === 'center') gCtx.rect(line.x - 10 - line.width, line.y - 5, line.width + 20, line.size + 10)
+    gCtx.rect(line.x - 10 - line.width / 2, line.y - 5 - line.size / 2, line.width + 20, line.size + 10)
     gCtx.stroke()
     gCtx.closePath()
 }
 
 function onMoveY(dy) {
-    setLineY(dy)
+    moveLineY(dy)
     renderMeme()
 }
 
 function onMoveX(dx) {
-    setLineX(dx)
+    moveLineX(dx)
     renderMeme()
 }
 
@@ -179,8 +181,8 @@ function onMouseDown(ev) {
     const lines = getMeme().lines
     const clickedLine = lines.findIndex(line => {
         const { x, y, size, width } = line
-        return pos.x >= x && pos.x <= x + width &&
-            pos.y >= y && pos.y <= y + size
+        return pos.x >= x - width / 2 && pos.x <= x + width / 2 &&
+            pos.y >= y - size / 2 && pos.y <= y + size / 2
     })
     setSelectedLineIdx(clickedLine)
     renderMeme()
@@ -200,12 +202,12 @@ function onDrag(ev) {
     const dx = pos.x - gPrevPos.x
     const dy = pos.y - gPrevPos.y
 
-    setLineX(dx)
-    setLineY(dy)
+    moveLineX(dx)
+    moveLineY(dy)
 
     renderMeme()
     gPrevPos = pos
-    
+
     window.addEventListener('mouseup', onMouseUp)
 }
 

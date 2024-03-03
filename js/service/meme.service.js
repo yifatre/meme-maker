@@ -62,9 +62,14 @@ function setLineText(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
-function setLineAlignDir(alignDir) {
+function setLineAlignDir(alignDir, canvasWidth) {
     if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].alignDir = alignDir
+    let newX
+    if (alignDir === 'left') newX = gMeme.lines[gMeme.selectedLineIdx].width / 2 + 5
+    else if (alignDir === 'center') newX = canvasWidth/2
+    else if (alignDir === 'right') newX = canvasWidth - gMeme.lines[gMeme.selectedLineIdx].width / 2 - 5
+    gMeme.lines[gMeme.selectedLineIdx].x = newX
 }
 
 function setLineColor(color) {
@@ -92,15 +97,20 @@ function setLineFont(fontName,) {
     gMeme.lines[gMeme.selectedLineIdx].font = fontName
 }
 
-function setLineY(dy) {
+function moveLineY(dy) {
     if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].y += dy
 }
 
-function setLineX(dx) {
+function moveLineX(dx) {
     if (!getNumOfLines() || getSelectedLine() === -1) return
     gMeme.lines[gMeme.selectedLineIdx].x += dx
 }
+
+// function setLineX(newX) {
+//     if (!getNumOfLines() || getSelectedLine() === -1) return
+//     gMeme.lines[gMeme.selectedLineIdx].x = newX
+// }
 
 function updateKeywordsMap(word) {
     if (!KEYWORDS.includes(word.toLowerCase())) return
@@ -109,8 +119,8 @@ function updateKeywordsMap(word) {
 }
 
 /*********************************/
-function addLine(txt = '') {
-    gMeme.lines.push(_createLine(txt))
+function addLine(txt = '', x = 0, y = 0) {
+    gMeme.lines.push(_createLine(txt, x, y))
     gMeme.selectedLineIdx = getNumOfLines() - 1
 }
 
@@ -163,8 +173,8 @@ function createMeme(imgId = -1, txt = '', id, lines) {
     }
 }
 
-function _createLine(txt = '') {
-    return { txt, size: 20, color: '#000000', fill: '#ffffff', x: 0, y: 0, width: 0, font: 'Impact', alignDir: 'left', isDrag: false }
+function _createLine(txt = '', x = 0, y = 0) {
+    return { txt, size: 20, color: '#000000', fill: '#ffffff', x, y, width: 0, font: 'Impact', alignDir: 'center', isDrag: false }
 }
 
 function _createImgs() {
