@@ -3,6 +3,8 @@
 let gElCanvas
 let gCtx
 
+let gPrevPos = null
+
 const TOUCH_EVENTS = ['touchstart', 'touchmove', 'touchend']
 
 
@@ -177,6 +179,7 @@ function onMouseDown(ev) {
     lines[clickedLine].isDrag = true
     // console.log('clickedLine:', clickedLine);
     document.body.style.cursor = 'grabbing'
+    gPrevPos = pos
 }
 
 function onDrag(ev) {
@@ -185,13 +188,14 @@ function onDrag(ev) {
 
     const pos = getEvPos(ev)
     // Calc the delta, the diff we moved
-    const dx = pos.x - line.x
-    const dy = pos.y - line.y
+    const dx = pos.x - gPrevPos.x
+    const dy = pos.y - gPrevPos.y
 
     setLineX(dx)
     setLineY(dy)
 
     renderMeme()
+    gPrevPos = pos
 }
 
 function onMouseUp() {
@@ -199,6 +203,7 @@ function onMouseUp() {
     if (!line) return
     line.isDrag = false
     document.body.style.cursor = 'grab'
+    gPrevPos = null
 }
 
 function addEventListeners() {
@@ -211,6 +216,8 @@ function addEventListeners() {
     gElCanvas.addEventListener('touchstart', onMouseDown)
     gElCanvas.addEventListener('touchmove', onDrag)
     gElCanvas.addEventListener('touchend', onMouseUp)
+
+    window.addEventListener('mouseup', onMouseUp)
 }
 
 function getEvPos(ev) {

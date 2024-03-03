@@ -3,6 +3,8 @@
         "canvas"
         "controls";
     margin: 0 auto;
+
+    user-select: none;
 }
 
 .canvas-container {
@@ -281,6 +283,8 @@
     margin-top: 1.5rem;
     gap: 1rem;
     align-items: center;
+
+    user-select: none;
 }
 
 .saves>*{
