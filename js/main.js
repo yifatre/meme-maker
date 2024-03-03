@@ -19,6 +19,7 @@ function onOpenGallery() {
     document.querySelector('.gallery').classList.remove('hide')
     document.querySelector('.saves').classList.add('hide')
     document.querySelector('.edit').classList.add('hide')
+    document.querySelector('.about').classList.add('hide')
     document.body.classList.remove('menu-open')
 }
 
@@ -27,5 +28,14 @@ function onOpenSavedMemes() {
     document.querySelector('.gallery').classList.remove('hide')
     document.querySelector('.saves').classList.add('hide')
     document.querySelector('.edit').classList.add('hide')
+    document.querySelector('.about').classList.add('hide')
+    document.body.classList.remove('menu-open')
+}
+
+function onOpenAbout(){
+    document.querySelector('.gallery').classList.add('hide')
+    document.querySelector('.saves').classList.add('hide')
+    document.querySelector('.edit').classList.add('hide')
+    document.querySelector('.about').classList.remove('hide')
     document.body.classList.remove('menu-open')
 }

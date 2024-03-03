@@ -56,6 +56,7 @@ button.clear {
 }
 
 .msg-no-saved {
+    margin-block-start: 1rem;
     grid-column: span 2;
 }
 

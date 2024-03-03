@@ -208,6 +208,8 @@ function onDrag(ev) {
 
     renderMeme()
     gPrevPos = pos
+    
+    window.addEventListener('mouseup', onMouseUp)
 }
 
 function onMouseUp() {
@@ -217,6 +219,8 @@ function onMouseUp() {
     line.isDrag = false
     document.body.style.cursor = 'grab'
     gPrevPos = null
+
+    window.removeEventListener('mouseup', onMouseUp)
 }
 
 function addEventListeners() {
@@ -230,7 +234,6 @@ function addEventListeners() {
     gElCanvas.addEventListener('touchmove', onDrag)
     gElCanvas.addEventListener('touchend', onMouseUp)
 
-    window.addEventListener('mouseup', onMouseUp)
 }
 
 function getEvPos(ev) {

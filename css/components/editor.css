@@ -279,7 +279,7 @@
     opacity: 1;
 }
 
-.saves{
+.saves {
     margin-top: 1.5rem;
     gap: 1rem;
     align-items: center;
@@ -287,8 +287,7 @@
     user-select: none;
 }
 
-.saves>*{
-    text-decoration: none;
+.saves>button {
     font-size: 1rem;
     background-color: var(--hot-pink-clear);
     border: 1px solid var(--off-black);
@@ -299,6 +298,30 @@
     transition: background-color 600ms;
 }
 
-.saves>*:hover{
+.saves div button {
+    width: 2rem;
+    height: 3rem;
+
+    border: none;
+    background: none;
+    margin-inline: 0.5rem;
+}
+
+.saves svg{
+    fill: var(--off-black);
+    transition: fill 300ms;
+}
+
+.saves div button:first-of-type:hover svg {
+    fill: var(--coral)
+}
+.saves div button:nth-of-type(2):hover svg {
+    fill: var(--coral);
+}
+.saves div button:last-of-type:hover svg {
+    fill: #316FF6;
+}
+
+.saves>button:hover {
     background-color: var(--hot-pink);
 }

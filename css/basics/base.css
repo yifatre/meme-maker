@@ -8,6 +8,8 @@ body {
     color: #222222;
     background-color: var(--off-white);
     margin: 0;
+
+    padding-block-end: 2rem;
 }
 
 button {
@@ -33,7 +35,7 @@ canvas {
 }
 
 img {
-    width: 100%;
+    max-width: 100%;
 }
 
 .clear-btn{
